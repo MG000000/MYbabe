@@ -218,6 +218,7 @@
   .wish{background:var(--paper);border-radius:24px;padding:36px 28px;max-width:420px;text-align:center}
   .wish h3{font-family:var(--hand);color:var(--rose);font-size:32px;font-weight:400;margin-bottom:10px}
   .wish p{font-family:var(--serif);font-size:19px;line-height:1.9;margin-bottom:24px}
+  .wish-btn-group{display:flex;flex-direction:column;gap:10px;margin-top:15px}
 
   @media (max-width:480px){
     .gallery{grid-template-columns:1fr}
@@ -324,7 +325,7 @@
   <footer>عملتها بإيدي، سطر سطر. لحبيبة وبس.</footer>
 </main>
 
-<!-- ===== نافذة الصورة ===== -->
+<!-- ===== نافذة الصورة / الهدية ===== -->
 <div class="modal" id="photo-modal">
   <figure>
     <img id="modal-img" alt="">
@@ -332,12 +333,15 @@
   </figure>
 </div>
 
-<!-- ===== نافذة الأمنية ===== -->
+<!-- ===== نافذة الأمنية والتنبيه بالهدية ===== -->
 <div class="modal" id="wish-modal">
   <div class="wish">
-    <h3>إن شاء الله تتحقق</h3>
+    <h3>إن شاء الله تتحقق 🤍</h3>
     <p>مش هسألك اتمنيتي إيه. بس لو أنا جوا الأمنية دي، أوعدك إني هحاول أبقى قدها.</p>
-    <button class="btn" data-close>بحبك يا مصطفى 🤍</button>
+    <div class="wish-btn-group">
+      <button class="btn" id="show-gift-btn">شوفي هديتك بقا 🎁</button>
+      <button class="btn light" data-close>بحبك يا مصطفى 🤍</button>
+    </div>
   </div>
 </div>
 
@@ -571,6 +575,16 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+
+// زرار الانتقال من نافذة الأمنية لهدية الخاتم
+$('show-gift-btn').onclick = function() {
+  $('wish-modal').classList.remove('open');
+  $('modal-img').src = 'images/my babe gift.jpg';
+  $('modal-img').alt = 'هدية الخاتم';
+  $('modal-cap').textContent = 'أحلى خاتم لأحلى حبيبة 💍';
+  $('photo-modal').classList.add('open');
+  party(150);
+};
 
 function party(n) {
   if (n === undefined) n = 120;
