@@ -40,6 +40,73 @@ body{
     overflow-x: hidden;
 }
 
+/* ---------------- ENVELOPE OVERLAY ---------------- */
+.envelope-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--wine);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.envelope-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.envelope-wrapper {
+    cursor: pointer;
+    perspective: 1000px;
+    text-align: center;
+}
+
+.envelope {
+    width: 280px;
+    height: 180px;
+    background: #4a1328;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease;
+}
+
+.envelope:hover {
+    transform: scale(1.03);
+}
+
+.envelope-seal {
+    width: 60px;
+    height: 60px;
+    background: var(--rose);
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.envelope-text {
+    margin-top: 20px;
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--paper);
+}
+
+/* ---------------- MAIN CONTAINER ---------------- */
 .container{
     width: 100%;
     max-width: 600px;
@@ -52,22 +119,21 @@ body{
     z-index: 2;
 }
 
-/* Header & Counter Styles */
 .years-display {
     font-family: var(--serif);
-    font-size: clamp(7rem, 25vw, 12rem);
+    font-size: clamp(7rem, 25vw, 11rem);
     line-height: 1;
     font-weight: 700;
     color: var(--rose);
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
     text-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .greeting {
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     color: var(--paper);
-    margin: 10px 0 20px 0;
+    margin: 10px 0 15px 0;
     font-weight: 700;
 }
 
@@ -78,11 +144,10 @@ body{
     margin-bottom: 30px;
 }
 
-/* Gift Button */
 .gift-btn {
     background: linear-gradient(135deg, var(--rose), #9e2a4b);
     color: white;
-    border: none;
+    border: 1px solid var(--gold);
     padding: 14px 32px;
     font-size: 1.2rem;
     font-family: var(--sans);
@@ -92,9 +157,6 @@ body{
     box-shadow: 0 8px 25px rgba(200, 68, 107, 0.4);
     transition: all 0.3s ease;
     margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .gift-btn:hover {
@@ -102,7 +164,6 @@ body{
     box-shadow: 0 12px 30px rgba(200, 68, 107, 0.6);
 }
 
-/* Timeline & Memories Section */
 .section-title {
     font-family: var(--serif);
     font-size: 1.8rem;
@@ -110,12 +171,42 @@ body{
     margin: 30px 0 20px 0;
 }
 
+/* ---------------- GALLERY & ZOOM ---------------- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.gallery-item {
+    border-radius: 16px;
+    overflow: hidden;
+    height: 180px;
+    border: 1px solid rgba(246, 214, 220, 0.2);
+    cursor: pointer;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+
+/* ---------------- TIMELINE & REASONS ---------------- */
 .memories-list {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .memory-card {
@@ -131,7 +222,6 @@ body{
     font-size: 0.85rem;
     color: var(--gold);
     margin-bottom: 4px;
-    font-weight: 500;
 }
 
 .memory-card .title {
@@ -140,14 +230,13 @@ body{
     font-weight: 700;
 }
 
-/* Reasons List */
 .reasons-box {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     padding: 24px;
     width: 100%;
     margin-bottom: 40px;
-    border: 1px solid rgba(246, 214, 220, 0.1);
+    border: 1px solid rgba(246, 214, 220, 0.15);
 }
 
 .reasons-box ul {
@@ -163,18 +252,18 @@ body{
     color: var(--paper);
 }
 
-/* Modal Popup for Gift */
+/* ---------------- MODALS & LIGHTBOX ---------------- */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -195,7 +284,7 @@ body{
     width: 100%;
     text-align: center;
     position: relative;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 
 .modal-content img {
@@ -220,6 +309,15 @@ body{
     margin-bottom: 20px;
 }
 
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
 .close-btn {
     background: var(--rose);
     color: white;
@@ -231,69 +329,49 @@ body{
     font-family: var(--sans);
     font-weight: 700;
 }
-
-/* Gallery Section */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    width: 100%;
-    margin-bottom: 40px;
-}
-
-.gallery-item {
-    border-radius: 14px;
-    overflow: hidden;
-    height: 180px;
-    border: 1px solid rgba(246, 214, 220, 0.2);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.gallery-item img:hover {
-    transform: scale(1.05);
-}
 </style>
 </head>
 <body>
 
+<!-- شاشة الظرف عند الفتح -->
+<div class="envelope-overlay" id="envelopeOverlay">
+    <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="envelope-seal">💌</div>
+        </div>
+        <div class="envelope-text">اضغطي هنا لتفتحي الرسالة 🤍</div>
+    </div>
+</div>
+
 <div class="container">
-    <!-- العمر / الرقم المميز -->
     <div class="years-display">١٩</div>
     
     <h1 class="greeting">كل سنة وانتي طيبة يا حبيبة 🤍</h1>
     <p class="sub-greeting">سنة جديدة من عمرك، وأنا فرحان إني جنبك فيها.</p>
 
-    <!-- زر الهدية -->
-    <button class="gift-btn" onclick="openModal()">
-        <span>شوفتي الهدية دي؟</span> 🎁
+    <button class="gift-btn" onclick="openGiftModal()">
+        شوفتي الهدية دي؟ 🎁
     </button>
 
-    <!-- الذكريات والتاريخ -->
-    <h2 class="section-title">أحلى محطات بينا</h2>
-    <div class="memories-list" id="memories-container">
-        <!-- يتم تعبئتها تلقائياً من الـ CONFIG -->
-    </div>
-
-    <!-- معرض الصور -->
     <h2 class="section-title">صور من ذكرياتنا</h2>
     <div class="gallery-grid">
-        <div class="gallery-item"><img src="images/MY BABE PHOTO.jpeg" alt="ذكرياتنا"></div>
-        <div class="gallery-item"><img src="images/my babe photo 2.jpeg" alt="ذكرياتنا"></div>
-        <div class="gallery-item"><img src="images/my babe photo 3.jpeg" alt="ذكرياتنا"></div>
+        <div class="gallery-item" onclick="zoomImage('images/MY BABE PHOTO.jpeg')">
+            <img src="images/MY BABE PHOTO.jpeg" alt="ذكرياتنا">
+        </div>
+        <div class="gallery-item" onclick="zoomImage('images/my babe photo 2.jpeg')">
+            <img src="images/my babe photo 2.jpeg" alt="ذكرياتنا">
+        </div>
+        <div class="gallery-item" onclick="zoomImage('images/my babe photo 3.jpeg')">
+            <img src="images/my babe photo 3.jpeg" alt="ذكرياتنا">
+        </div>
     </div>
 
-    <!-- حاجات بحبها فيكي -->
+    <h2 class="section-title">أحلى محطات بينا</h2>
+    <div class="memories-list" id="memories-container"></div>
+
     <h2 class="section-title">ليه بحبك؟</h2>
     <div class="reasons-box">
-        <ul id="reasons-container">
-            <!-- يتم تعبئتها تلقائياً من الـ CONFIG -->
-        </ul>
+        <ul id="reasons-container"></ul>
     </div>
 </div>
 
@@ -303,14 +381,16 @@ body{
         <img src="images/my babe gift.jpg" alt="هدية الخاتم">
         <h3>أحلى خاتم لأحلى حبيبة</h3>
         <p>ربنا يخليكي ليا وما تحرمنيش منك ابداً يا أجمل صدفة في حياتي.</p>
-        <button class="close-btn" onclick="closeModal()">حبيبي تسلملي 🤍</button>
+        <button class="close-btn" onclick="closeGiftModal()">حبيبي تسلملي 🤍</button>
     </div>
 </div>
 
+<!-- Lightbox لتكبير الصور -->
+<div class="modal-overlay" id="imageLightbox" onclick="closeLightbox()">
+    <img src="" id="lightboxImg" class="lightbox-img" alt="صورة مكبرة">
+</div>
+
 <script>
-    /* ===================================================
-       إعدادات التواريخ والبيانات والصور..
-       =================================================== */
     const CONFIG = {
         memories: [
             { title: 'أول مرة اتكلمنا', date: '2024-05-22T00:00:00' },
@@ -325,7 +405,11 @@ body{
         ]
     };
 
-    // تعبئة الذكريات تلقائياً
+    function openEnvelope() {
+        document.getElementById('envelopeOverlay').classList.add('hidden');
+        confetti({ particleCount: 80, spread: 60, origin: { y: 0.5 } });
+    }
+
     const memoriesContainer = document.getElementById('memories-container');
     CONFIG.memories.forEach(mem => {
         const card = document.createElement('div');
@@ -337,7 +421,6 @@ body{
         memoriesContainer.appendChild(card);
     });
 
-    // تعبئة الأسباب تلقائياً
     const reasonsContainer = document.getElementById('reasons-container');
     CONFIG.reasons.forEach(reason => {
         const li = document.createElement('li');
@@ -345,18 +428,22 @@ body{
         reasonsContainer.appendChild(li);
     });
 
-    // تحكم الـ Modal
-    function openModal() {
+    function openGiftModal() {
         document.getElementById('giftModal').classList.add('active');
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
 
-    function closeModal() {
+    function closeGiftModal() {
         document.getElementById('giftModal').classList.remove('active');
+    }
+
+    function zoomImage(src) {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('imageLightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+        document.getElementById('imageLightbox').classList.remove('active');
     }
 </script>
 
