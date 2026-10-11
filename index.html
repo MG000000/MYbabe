@@ -6,631 +6,143 @@
 <title>كل سنة وانتي طيبة يا عمري❤️</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <style>
-  :root{
-    --wine:#5B1A33;
-    --rose:#C8446B;
-    --blush:#F6D6DC;
-    --gold:#C9A24A;
-    --paper:#FCF4F2;
-    --card:#FFFFFF;
-    --ink:#3A2A2E;
-    --muted:#8A6F75;
-    --line:#EBD3D8;
-    --title:#5B1A33;
-    --shadow:rgba(91,26,51,.18);
-    --serif:'Amiri','Times New Roman',serif;
-    --hand:'Aref Ruqaa','Amiri',serif;
-    --sans:'Tajawal','Segoe UI',Tahoma,sans-serif;
-    box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-  }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --paper:#1C1216;--card:#281A20;--ink:#F3E6E9;--muted:#B89BA3;
-      --line:#3E2A32;--title:#F2B7C6;--shadow:rgba(0,0,0,.45);
-    }
-  }
-  :root[data-theme="dark"]{
-    --paper:#1C1216;--card:#281A20;--ink:#F3E6E9;--muted:#B89BA3;
-    --line:#3E2A32;--title:#F2B7C6;--shadow:rgba(0,0,0,.45);
-  }
-
-  *,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.8;overflow-x:hidden}
-  img{max-width:100%;display:block}
-  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
-  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
-  body.locked{overflow:hidden}
-
-  /* ---------- الظرف ---------- */
-  #gate{
-    position:fixed;inset:0;z-index:100;display:grid;place-items:center;
-    background:var(--wine);color:var(--blush);text-align:center;
-    padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));
-    transition:opacity .9s ease,visibility .9s;
-  }
-  #gate.gone{opacity:0;visibility:hidden}
-  .envelope{
-    width:min(280px,72vw);aspect-ratio:3/2;position:relative;margin:0 auto 34px;
-    background:var(--blush);border-radius:6px;perspective:700px;
-    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
-  }
-  .flap{
-    position:absolute;inset:0 0 auto 0;height:62%;z-index:2;
-    background:#EFC3CC;clip-path:polygon(0 0,100% 0,50% 100%);
-    transform-origin:top;transition:transform .7s ease;
-  }
-  .note-peek{
-    position:absolute;inset:14% 10% auto;height:70%;z-index:1;
-    background:#fff;border-radius:4px;transition:transform .7s ease .35s;
-  }
-  .seal{
-    position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);z-index:3;
-    width:54px;height:54px;border-radius:50%;background:var(--rose);color:#fff;
-    display:grid;place-items:center;font-family:var(--hand);font-size:26px;
-    box-shadow:0 4px 10px rgba(0,0,0,.25);transition:opacity .3s;
-  }
-  #gate.opening .flap{transform:rotateX(180deg);z-index:0}
-  #gate.opening .seal{opacity:0}
-  #gate.opening .note-peek{transform:translateY(-38%)}
-  #gate h2{font-family:var(--serif);font-weight:400;font-size:clamp(23px,5vw,31px);margin-bottom:4px}
-  #gate p{opacity:.75;font-size:15px;margin-bottom:28px}
-
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 30px;border-radius:999px;
-    background:var(--rose);color:#fff;font-weight:700;font-size:17px;width:100%;
-    transition:transform .2s ease,background .2s ease;
-  }
-  .btn:hover{background:#B33A5E}
-  .btn:active{transform:scale(.97)}
-  .btn.light{background:var(--blush);color:var(--wine);width:auto}
-
-  /* ---------- الصفحة ---------- */
-  main{max-width:720px;margin:0 auto;padding:0 22px 40px}
-  section{padding:64px 0}
-  h2.title{font-family:var(--serif);font-weight:700;color:var(--title);font-size:clamp(27px,5vw,36px);line-height:1.4;margin-bottom:8px}
-  .lead{color:var(--muted);font-size:16px;max-width:48ch}
-
-  /* الهيرو */
-  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 0}
-  .hero .name{font-family:var(--hand);color:var(--rose);font-size:clamp(72px,22vw,150px);line-height:1.1}
-  .hero h1{font-family:var(--serif);font-weight:400;color:var(--title);font-size:clamp(24px,5.5vw,36px);line-height:1.5;margin-top:8px}
-  .hero p{font-size:clamp(17px,3.6vw,19px);color:var(--muted);max-width:30ch;margin:14px auto 0}
-  .age-badge{
-    display:inline-block;margin:26px auto 0;padding:6px 18px;border-radius:999px;
-    border:1px solid var(--line);color:var(--muted);font-size:15px;
-  }
-  .age-badge b{color:var(--rose);font-family:var(--serif);font-size:20px}
-  .scroll-hint{margin-top:44px;color:var(--muted);font-size:14px}
-
-  /* العداد */
-  .count{background:var(--wine);color:var(--blush);border-radius:28px;padding:38px 24px;text-align:center}
-  .count h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,4.6vw,29px);margin-bottom:22px}
-  .digits{display:flex;justify-content:center;gap:clamp(14px,4vw,36px);flex-wrap:wrap}
-  .digit b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(40px,10vw,62px);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
-  .digit span{font-size:14px;opacity:.7}
-  .count .sub{margin-top:20px;font-size:15px;opacity:.8}
-  .today-msg{font-family:var(--serif);font-size:clamp(25px,5vw,34px);color:#fff;line-height:1.6}
-
-  /* الخط الزمني */
-  .timeline{list-style:none;margin-top:30px;position:relative;padding-right:28px}
-  .timeline::before{content:"";position:absolute;right:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
-  .timeline li{position:relative;padding:0 0 34px}
-  .timeline li:last-child{padding-bottom:0}
-  .timeline li::before{
-    content:"";position:absolute;right:-28px;top:10px;width:16px;height:16px;border-radius:50%;
-    background:var(--paper);border:3px solid var(--rose);
-  }
-  .timeline h3{font-family:var(--serif);font-size:22px;color:var(--title)}
-  .timeline .when{font-size:14px;color:var(--muted)}
-  .timeline .since{font-family:var(--serif);font-size:19px;margin-top:6px}
-  .timeline .boxes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px;max-width:420px}
-  .timeline .box{
-    aspect-ratio:1;border-radius:14px;background:var(--wine);color:#fff;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    box-shadow:0 10px 24px -14px var(--shadow);
-  }
-  .timeline .box b{font-family:var(--sans);font-weight:700;font-size:clamp(22px,6vw,32px);line-height:1;font-variant-numeric:tabular-nums}
-  .timeline .box span{font-size:13px;opacity:.8;margin-top:6px}
-
-  /* حاجات بحبها */
-  .reasons{list-style:none;margin-top:24px}
-  .reasons li{padding:18px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(19px,4vw,23px);line-height:1.7}
-  .reasons li:last-child{border-bottom:0}
-
-  /* الصور */
-  .gallery{display:grid;gap:14px;margin-top:26px;grid-template-columns:repeat(2,1fr)}
-  .gallery figure{position:relative;border-radius:16px;overflow:hidden;background:var(--blush);cursor:zoom-in;aspect-ratio:4/5}
-  .gallery figure:first-child{grid-column:span 2;aspect-ratio:16/10}
-  .gallery img{width:100%;height:100%;object-fit:cover}
-  .gallery figure.empty{cursor:default;display:grid;place-items:center;color:var(--wine);font-size:40px}
-  .gallery figcaption{
-    position:absolute;inset:auto 0 0 0;padding:28px 16px 12px;color:#fff;font-size:15px;font-weight:500;
-    background:linear-gradient(to top,rgba(58,20,35,.75),transparent);
-  }
-
-  /* الجواب */
-  .letter{
-    background:var(--card);border-radius:6px;padding:clamp(28px,6vw,52px);
-    box-shadow:0 1px 0 var(--line),0 24px 50px -30px var(--shadow);
-    font-family:var(--serif);font-size:clamp(19px,3.8vw,22px);line-height:2.1;
-  }
-  .letter p+p{margin-top:16px}
-  .letter .hello{font-family:var(--hand);color:var(--rose);font-size:1.4em}
-  .letter .sign{margin-top:30px;text-align:left;color:var(--rose)}
-  .letter .sign b{display:block;font-family:var(--hand);font-size:1.6em;font-weight:400}
-  .letter .ps{margin-top:26px;font-size:.85em;color:var(--muted)}
-
-  /* افتحي لما */
-  .open-when{display:grid;gap:12px;margin-top:24px}
-  .open-when details{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .open-when summary{
-    list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;
-    font-family:var(--serif);font-size:20px;color:var(--title);
-  }
-  .open-when summary::-webkit-details-marker{display:none}
-  .open-when summary::after{content:"✉";color:var(--rose);font-size:20px;transition:transform .3s}
-  .open-when details[open] summary::after{content:"💌"}
-  .open-when details p{padding:0 20px 20px;font-size:17px;line-height:1.9}
-
-  /* التورتة */
-  .cake-sec{text-align:center}
-  .cake-sec .lead{margin:0 auto}
-  .cake{position:relative;width:min(300px,80vw);margin:56px auto 18px}
-  .candles{display:flex;justify-content:center;gap:clamp(18px,5vw,28px);height:92px;align-items:flex-end;position:relative;z-index:2}
-  .candle{position:relative;width:14px;height:60px;border-radius:3px;cursor:pointer;
-    background:repeating-linear-gradient(45deg,#fff 0 6px,var(--blush) 6px 12px)}
-  .candle::before{content:"";position:absolute;top:-8px;left:50%;width:2px;height:8px;background:#5a4a4a;transform:translateX(-50%)}
-  .flame{
-    position:absolute;top:-34px;left:50%;width:16px;height:26px;margin-left:-8px;
-    background:radial-gradient(ellipse at 50% 70%,#fff6c8 0 25%,#ffc845 45%,#ff8a3d 75%,transparent 80%);
-    border-radius:50% 50% 45% 45%/60% 60% 40% 40%;
-    animation:flick 1.2s ease-in-out infinite alternate;transition:opacity .25s,transform .25s;
-  }
-  .candle.out .flame{opacity:0;transform:scale(.2) translateY(10px)}
-  .candle.out::after{
-    content:"";position:absolute;top:-30px;left:50%;width:6px;height:20px;margin-left:-3px;border-radius:50%;
-    background:rgba(150,150,150,.5);filter:blur(3px);animation:smoke 1.4s ease-out forwards;
-  }
-  @keyframes flick{from{transform:rotate(-3deg) scaleY(1)}to{transform:rotate(3deg) scaleY(1.08)}}
-  @keyframes smoke{from{opacity:.8;transform:translateY(0)}to{opacity:0;transform:translateY(-30px) scaleX(2)}}
-  .tier{margin:0 auto;border-radius:10px 10px 6px 6px;position:relative}
-  .tier.top{width:72%;height:62px;background:var(--blush);margin-top:-2px}
-  .tier.bottom{width:100%;height:78px;background:var(--rose)}
-  .tier.top::after{content:"";position:absolute;inset:auto 0 -10px;height:20px;
-    background:radial-gradient(circle at 10px 0,#fff 9px,transparent 10px) 0 0/20px 20px repeat-x;opacity:.9}
-  .plate{width:115%;margin:0 -7.5%;height:12px;border-radius:50%;background:var(--line)}
-  .cake-status{color:var(--muted);min-height:1.8em;margin-bottom:8px}
-
-  footer{text-align:center;color:var(--muted);font-size:14px;padding-top:28px;border-top:1px solid var(--line)}
-
-  /* ---------- النوافذ ---------- */
-  .modal{position:fixed;inset:0;z-index:80;background:rgba(40,12,24,.82);display:none;place-items:center;padding:20px}
-  .modal.open{display:grid}
-  .modal img{max-height:78vh;border-radius:12px;margin:0 auto}
-  .modal .cap{color:#fff;text-align:center;margin-top:12px}
-  .wish{background:var(--paper);border-radius:24px;padding:36px 28px;max-width:420px;text-align:center}
-  .wish h3{font-family:var(--hand);color:var(--rose);font-size:32px;font-weight:400;margin-bottom:10px}
-  .wish p{font-family:var(--serif);font-size:19px;line-height:1.9;margin-bottom:24px}
-
-  @media (max-width:480px){
-    .gallery{grid-template-columns:1fr}
-    .gallery figure:first-child{grid-column:span 1}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
-    html{scroll-behavior:auto}
-  }
+:root{
+  --wine:#5B1A33;--wine-deep:#3D1022;--rose:#C8446B;--rose-soft:#E58AA5;
+  --blush:#F6D6DC;--blush-soft:#FBE9ED;--gold:#C9A24A;--paper:#FCF4F2;
+  --card:#FFFFFF;--ink:#3A2A2E;--muted:#8A6F75;--line:#EBD3D8;
+  --title:#5B1A33;--shadow:rgba(91,26,51,.18);
+  --serif:'Amiri','Times New Roman',serif;--hand:'Aref Ruqaa','Amiri',serif;
+  --sans:'Tajawal','Segoe UI',Tahoma,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1C1216;--card:#281A20;--ink:#F3E6E9;--muted:#B89BA3;--line:#3E2A32;--title:#F2B7C6;--shadow:rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{--paper:#1C1216;--card:#281A20;--ink:#F3E6E9;--muted:#B89BA3;--line:#3E2A32;--title:#F2B7C6;--shadow:rgba(0,0,0,.45)}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:var(--sans);color:var(--ink);line-height:1.8;overflow-x:hidden;background:radial-gradient(900px 500px at 85% -5%,rgba(200,68,107,.12),transparent 60%),radial-gradient(800px 500px at 5% 30%,rgba(201,162,74,.10),transparent 60%),radial-gradient(900px 600px at 90% 75%,rgba(200,68,107,.08),transparent 60%),var(--paper);transition:background .5s ease}
+img{max-width:100%;display:block}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}body.locked{overflow:hidden}
+#hearts-canvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}.reveal.shown{opacity:1;transform:none}
+#gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(700px 500px at 50% 20%,rgba(200,68,107,.35),transparent 65%),linear-gradient(165deg,var(--wine-deep),var(--wine) 60%,#7A2543);color:var(--blush);text-align:center;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));transition:opacity .9s ease,visibility .9s;overflow:hidden}
+#gate.gone{opacity:0;visibility:hidden}#gate::before{content:"❤";position:absolute;font-size:34px;color:rgba(255,255,255,.10);left:12%;top:18%;animation:floaty 5s ease-in-out infinite}#gate::after{content:"❤";position:absolute;font-size:22px;color:rgba(255,255,255,.08);right:15%;bottom:22%;animation:floaty 6s ease-in-out infinite reverse}
+@keyframes floaty{50%{transform:translateY(-15px)}}.envelope{width:min(280px,72vw);aspect-ratio:3/2;position:relative;margin:0 auto 34px;background:var(--blush);border-radius:6px;perspective:700px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.flap{position:absolute;inset:0 0 auto 0;height:62%;z-index:2;background:#EFC3CC;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s ease}
+.note-peek{position:absolute;inset:14% 10% auto;height:70%;z-index:1;background:#fff;border-radius:4px;transition:transform .7s ease .35s}.note-peek::before{content:"بحبك";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--hand);color:var(--rose);font-size:26px}
+.seal{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);z-index:3;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E0658A,var(--rose));display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.3);animation:beat 1.6s ease-in-out infinite;transition:opacity .3s}.seal svg{width:30px;height:30px;fill:#fff}
+@keyframes beat{0%,100%{transform:translate(-50%,-50%) scale(1)}12%{transform:translate(-50%,-50%) scale(1.14)}24%{transform:translate(-50%,-50%) scale(1)}36%{transform:translate(-50%,-50%) scale(1.1)}48%{transform:translate(-50%,-50%) scale(1)}}
+#gate.opening .flap{transform:rotateX(180deg);z-index:0}#gate.opening .seal{opacity:0}#gate.opening .note-peek{transform:translateY(-38%)}
+#gate h2{font-family:var(--serif);font-weight:400;font-size:clamp(23px,5vw,31px);margin-bottom:4px}#gate p{opacity:.75;font-size:15px;margin-bottom:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:999px;background:linear-gradient(135deg,var(--rose),#A9325A);color:#fff;font-weight:700;font-size:17px;width:100%;box-shadow:0 12px 26px -10px rgba(200,68,107,.55);transition:transform .2s ease,box-shadow .2s ease}.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(200,68,107,.65)}.btn:active{transform:scale(.97)}.btn.light{background:var(--blush);color:var(--wine);width:auto;box-shadow:0 10px 22px -10px rgba(0,0,0,.35)}
+.gate-input{display:block;width:min(300px,78vw);margin:0 auto 12px;padding:14px 22px;border-radius:999px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;text-align:center;font-size:17px;font-family:var(--sans);letter-spacing:6px;transition:border-color .3s,background .3s}.gate-input::placeholder{color:rgba(255,255,255,.55);letter-spacing:0;font-size:15px}.gate-input:focus{outline:none;border-color:var(--blush);background:rgba(255,255,255,.2)}.gate-input.wrong{border-color:#ff5f7a;animation:shake .45s ease}@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}.gate-error{min-height:1.6em;font-size:14px;color:#FFB3C2;margin:0 0 10px}
+main{max-width:720px;margin:0 auto;padding:0 22px 40px;position:relative;z-index:2}section{padding:64px 0}h2.title{font-family:var(--serif);font-weight:700;color:var(--title);font-size:clamp(27px,5vw,36px);line-height:1.4;margin-bottom:8px}.lead{color:var(--muted);font-size:16px;max-width:48ch}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 0;position:relative}
+/* إصلاح ظهور نقاط الحروف العربية: مساحة رأسية إضافية وخط أميري واضح مع الحفاظ على التدرج */
+.hero .name{font-family:'Amiri',serif;font-size:clamp(72px,18vw,150px);font-weight:700;line-height:1.5;padding:.08em 0 .18em;display:block;direction:rtl;unicode-bidi:isolate;background:linear-gradient(120deg,var(--rose) 20%,var(--gold) 40%,var(--rose) 60%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 5s linear infinite;filter:drop-shadow(0 6px 18px rgba(200,68,107,.30));overflow:visible}
+@keyframes shimmer{to{background-position:220% center}}.hero h1{font-family:var(--serif);font-weight:400;color:var(--title);font-size:clamp(24px,5.5vw,36px);line-height:1.5;margin-top:8px}.hero p{font-size:clamp(17px,3.6vw,19px);color:var(--muted);max-width:32ch;margin:14px auto 0;min-height:2.2em}.hero p .caret{display:inline-block;width:2px;height:1em;background:var(--rose);vertical-align:-2px;animation:blink 1s steps(1) infinite;margin-right:2px}@keyframes blink{50%{opacity:0}}
+.age-badge{display:inline-block;margin:26px auto 0;padding:8px 22px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:15px;background:var(--card);box-shadow:0 8px 20px -12px var(--shadow)}.age-badge b{color:var(--rose);font-family:var(--serif);font-size:20px}.love-meter{margin:20px auto 0;max-width:340px}.love-meter .bar{height:12px;border-radius:999px;background:var(--line);overflow:hidden}.love-meter .bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--rose-soft),var(--rose));transition:width 2.4s cubic-bezier(.2,.8,.2,1)}.love-meter .lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:6px}.love-meter .lbl b{color:var(--rose)}.scroll-hint{margin-top:44px;color:var(--muted);font-size:14px;animation:hint 2.4s ease-in-out infinite}@keyframes hint{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.count{background:linear-gradient(150deg,var(--wine-deep),var(--wine) 55%,#7A2543);color:var(--blush);border-radius:28px;padding:38px 24px;text-align:center;box-shadow:0 30px 60px -30px rgba(91,26,51,.6);position:relative;overflow:hidden}.count::before{content:"❤";position:absolute;font-size:130px;color:rgba(255,255,255,.05);left:-20px;top:-30px;transform:rotate(-15deg)}.count h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,4.6vw,29px);margin-bottom:22px}.digits{display:flex;justify-content:center;gap:clamp(14px,4vw,36px);flex-wrap:wrap}.digit b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(40px,10vw,62px);line-height:1;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 4px 20px rgba(0,0,0,.3)}.digit span{font-size:14px;opacity:.7}.count .sub{margin-top:20px;font-size:15px;opacity:.8}.today-msg{font-family:var(--serif);font-size:clamp(25px,5vw,34px);color:#fff;line-height:1.6}
+.timeline{list-style:none;margin-top:30px;position:relative;padding-right:28px}.timeline::before{content:"";position:absolute;right:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--rose),var(--gold))}.timeline li{position:relative;padding:0 0 34px}.timeline li:last-child{padding-bottom:0}.timeline li::before{content:"❤";position:absolute;right:-27px;top:4px;width:18px;height:18px;font-size:15px;color:var(--rose);background:var(--paper);display:grid;place-items:center;line-height:18px}.timeline h3{font-family:var(--serif);font-size:22px;color:var(--title)}.timeline .when{font-size:14px;color:var(--muted)}.timeline .since{font-family:var(--serif);font-size:19px;margin-top:6px}.timeline .boxes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px;max-width:420px}.timeline .box{aspect-ratio:1;border-radius:14px;background:linear-gradient(150deg,var(--wine),#7A2543);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 12px 26px -14px var(--shadow)}.timeline .box b{font-family:var(--sans);font-weight:700;font-size:clamp(22px,6vw,32px);line-height:1;font-variant-numeric:tabular-nums}.timeline .box span{font-size:13px;opacity:.8;margin-top:6px}
+.reasons{list-style:none;margin-top:24px}.reasons li{padding:18px;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(19px,4vw,23px);line-height:1.7;display:flex;gap:14px;align-items:flex-start;border-radius:14px;transition:background .3s ease,transform .3s ease}.reasons li:hover{background:var(--card);transform:translateX(-4px)}.reasons li:last-child{border-bottom:0}.reasons li::before{content:"❤";color:var(--rose);font-size:16px;margin-top:8px;flex-shrink:0}
+.gallery{display:grid;gap:14px;margin-top:26px;grid-template-columns:repeat(2,1fr)}.gallery figure{position:relative;border-radius:18px;overflow:hidden;background:var(--blush);cursor:zoom-in;aspect-ratio:4/5;box-shadow:0 16px 34px -18px var(--shadow)}.gallery figure:first-child{grid-column:span 2;aspect-ratio:16/10}.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}.gallery figure:hover img{transform:scale(1.06)}.gallery figure.empty{cursor:default;display:grid;place-items:center;color:var(--wine);font-size:40px}.gallery figcaption{position:absolute;inset:auto 0 0 0;padding:28px 16px 12px;color:#fff;font-size:15px;font-weight:500;background:linear-gradient(to top,rgba(58,20,35,.75),transparent)}
+.letter{background:var(--card);border-radius:8px;padding:clamp(28px,6vw,52px);position:relative;box-shadow:0 1px 0 var(--line),0 24px 50px -30px var(--shadow);font-family:var(--serif);font-size:clamp(19px,3.8vw,22px);line-height:2.1;border:1px solid var(--line)}.letter::before{content:"❤";position:absolute;top:-18px;left:26px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#E0658A,var(--rose));color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:0 8px 18px -6px rgba(200,68,107,.6)}.letter p+p{margin-top:16px}.letter .hello{font-family:var(--hand);color:var(--rose);font-size:1.4em}.letter .sign{margin-top:30px;text-align:left;color:var(--rose)}.letter .sign b{display:block;font-family:var(--hand);font-size:1.6em;font-weight:400}.letter .ps{margin-top:26px;font-size:.85em;color:var(--muted);border-top:1px dashed var(--line);padding-top:16px}
+.open-when{display:grid;gap:12px;margin-top:24px}.open-when details{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 24px -18px var(--shadow);transition:border-color .3s}.open-when details[open]{border-color:var(--rose-soft)}.open-when summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-family:var(--serif);font-size:20px;color:var(--title)}.open-when summary::-webkit-details-marker{display:none}.open-when summary::after{content:"✉";color:var(--rose);font-size:20px;transition:transform .3s}.open-when details[open] summary::after{content:"💌";transform:scale(1.15)}.open-when details p{padding:0 20px 20px;font-size:17px;line-height:1.9}
+.cake-sec{text-align:center}.cake-sec .lead{margin:0 auto}.cake{position:relative;width:min(300px,80vw);margin:56px auto 18px}.candles{display:flex;justify-content:center;gap:clamp(18px,5vw,28px);height:92px;align-items:flex-end;position:relative;z-index:2}.candle{position:relative;width:14px;height:60px;border-radius:3px;cursor:pointer;background:repeating-linear-gradient(45deg,#fff 0 6px,var(--blush) 6px 12px);transition:transform .2s}.candle:hover{transform:translateY(-3px)}.candle::before{content:"";position:absolute;top:-8px;left:50%;width:2px;height:8px;background:#5a4a4a;transform:translateX(-50%)}.flame{position:absolute;top:-34px;left:50%;width:16px;height:26px;margin-left:-8px;background:radial-gradient(ellipse at 50% 70%,#fff6c8 0 25%,#ffc845 45%,#ff8a3d 75%,transparent 80%);border-radius:50% 50% 45% 45%/60% 60% 40% 40%;animation:flick 1.2s ease-in-out infinite alternate;transition:opacity .25s,transform .25s;filter:drop-shadow(0 0 8px rgba(255,170,60,.8))}.candle.out .flame{opacity:0;transform:scale(.2) translateY(10px)}.candle.out::after{content:"";position:absolute;top:-30px;left:50%;width:6px;height:20px;margin-left:-3px;border-radius:50%;background:rgba(150,150,150,.5);filter:blur(3px);animation:smoke 1.4s ease-out forwards}@keyframes flick{from{transform:rotate(-3deg) scaleY(1)}to{transform:rotate(3deg) scaleY(1.08)}}@keyframes smoke{from{opacity:.8;transform:translateY(0)}to{opacity:0;transform:translateY(-30px) scaleX(2)}}.tier{margin:0 auto;border-radius:10px 10px 6px 6px;position:relative}.tier.top{width:72%;height:62px;background:linear-gradient(180deg,var(--blush-soft),var(--blush));margin-top:-2px}.tier.bottom{width:100%;height:78px;background:linear-gradient(180deg,var(--rose-soft),var(--rose))}.tier.top::after{content:"";position:absolute;inset:auto 0 -10px;height:20px;background:radial-gradient(circle at 10px 0,#fff 9px,transparent 10px) 0 0/20px 20px repeat-x;opacity:.9}.plate{width:115%;margin:0 -7.5%;height:12px;border-radius:50%;background:var(--line)}.cake-status{color:var(--muted);min-height:1.8em;margin-bottom:8px;font-weight:500}.love-burst{margin-top:34px}.love-burst .btn{width:auto}.love-count{margin-top:12px;color:var(--muted);font-size:14px}.love-count b{color:var(--rose);font-family:var(--serif);font-size:18px}
+footer{text-align:center;color:var(--muted);font-size:14px;padding-top:28px;border-top:1px solid var(--line)}footer .fh{color:var(--rose);animation:beat2 1.6s ease-in-out infinite;display:inline-block}@keyframes beat2{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}36%{transform:scale(1.18)}48%{transform:scale(1)}}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(40,12,24,.85);backdrop-filter:blur(4px);display:none;place-items:center;padding:20px}.modal.open{display:grid}.modal img{max-height:78vh;border-radius:14px;margin:0 auto;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}.modal .cap{color:#fff;text-align:center;margin-top:12px;font-family:var(--serif);font-size:18px}.wish{background:var(--paper);border-radius:24px;padding:36px 28px;max-width:420px;text-align:center;border:1px solid var(--line)}.wish h3{font-family:var(--hand);color:var(--rose);font-size:32px;font-weight:400;margin-bottom:10px}.wish p{font-family:var(--serif);font-size:19px;line-height:1.9;margin-bottom:24px}
+@media(max-width:480px){.gallery{grid-template-columns:1fr}.gallery figure:first-child{grid-column:span 1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 </style>
+<base target="_blank">
 </head>
 <body class="locked">
-
-<!-- ===== الظرف ===== -->
-<div id="gate" role="dialog" aria-label="افتحي الهدية">
-  <div>
-    <div class="envelope"><div class="note-peek"></div><div class="flap"></div><div class="seal">ح</div></div>
-    <h2>في حاجة صغيرة عملتهالك</h2>
-    <p>مش كبيرة، بس معمولة بإيدي</p>
-    <button class="btn light" id="open-btn">افتحيها</button>
-  </div>
-</div>
-
+<canvas id="hearts-canvas" aria-hidden="true"></canvas>
+<div id="gate" role="dialog" aria-label="افتحي الهدية"><div>
+  <div class="envelope"><div class="note-peek"></div><div class="flap"></div><div class="seal"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+  <h2>في حاجة صغيرة عملتهالك</h2><p>مش كبيرة، بس فيها كل قلبي</p>
+  <input type="password" id="gate-pass" class="gate-input" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="اكتبي كلمة السر الأول" aria-label="كلمة السر">
+  <p class="gate-error" id="gate-error" aria-live="polite"></p><button class="btn light" id="open-btn">افتحيها يا حبيبتي ❤</button>
+</div></div>
 <main>
-
-  <!-- ===== البداية ===== -->
-  <section class="hero">
-    <div class="name">حبيبة</div>
-    <h1>كل سنة وانتي طيبة</h1>
-    <p>سنة جديدة، وأنا لسه بختارك كل يوم.</p>
-    <div><span class="age-badge">بقيتي <b id="age">١٩</b> سنة</span></div>
-    <div class="scroll-hint">انزلي براحتك، مفيش استعجال ↓</div>
-  </section>
-
-  <!-- ===== العداد ===== -->
-  <section>
-    <div class="count" id="count">
-      <h2 id="count-title">فاضل على يومك</h2>
-      <div class="digits" id="digits">
-        <div class="digit"><b id="d">٠</b><span>يوم</span></div>
-        <div class="digit"><b id="h">٠</b><span>ساعة</span></div>
-        <div class="digit"><b id="m">٠</b><span>دقيقة</span></div>
-        <div class="digit"><b id="s">٠</b><span>ثانية</span></div>
-      </div>
-      <p class="sub" id="count-sub">وأنا عمال أعد معاكي</p>
-    </div>
-  </section>
-
-  <!-- ===== حكايتنا ===== -->
-  <section>
-    <h2 class="title">حكايتنا لحد دلوقتي</h2>
-    <p class="lead">حسبتها بالثانية. مش عشان أنا رخم، بس عشان كل ثانية فيهم فرقت معايا.</p>
-    <ol class="timeline" id="timeline"></ol>
-  </section>
-
-  <!-- ===== حاجات بحبها ===== -->
-  <section>
-    <h2 class="title">حاجات صغيرة بحبها فيكي</h2>
-    <p class="lead">القايمة الحقيقية أطول من كده بكتير، بس دول اللي جم في بالي وأنا بكتب.</p>
-    <ul class="reasons" id="reasons"></ul>
-  </section>
-
-  <!-- ===== الصور ===== -->
-  <section>
-    <h2 class="title">صور بحبها</h2>
-    <p class="lead">دوسي على أي صورة تكبر.</p>
-    <div class="gallery" id="gallery"></div>
-  </section>
-
-  <!-- ===== الجواب ===== -->
-  <section>
-    <article class="letter">
-      <p class="hello">حبيبة،</p>
-      <p>بصراحة أنا كتبت الجواب ده ومسحته أكتر من مرة. كل مرة الكلام يطلع شكله حلو، بس مش شبهي. فقررت أكتبه زي ما بكلمك بالظبط.</p>
-      <p>من ساعة ما اتكلمنا أول مرة وفي حاجات صغيرة اتغيرت فيا. بقيت أستنى رسالتك من غير ما آخد بالي. بقيت لما أشوف حاجة تضحك، أول حاجة أعملها أبعتهالك. واليوم الوحش بقى يخف أول ما أسمع صوتك.</p>
-      <p>مش هوعدك إن كل حاجة هتبقى سهلة، بس هوعدك إني هفضل موجود. في الأيام الحلوة هبقى أول واحد بيفرحلك، وفي الأيام التقيلة هبقى جنبك حتى لو مش لاقي كلام أقوله.</p>
-      <p>وعايزك السنة دي تبقي أحن على نفسك شوية. إنتي بتدي اللي حواليكي كتير، وتستاهلي حد يدّيكي بنفس الطريقة. وأنا بحاول أبقى الحد ده.</p>
-      <p>كل سنة وانتي طيبة، وكل سنة وانتي حبيبتي.</p>
-      <div class="sign">بحبك<b>مصطفى</b></div>
-      <p class="ps">ملحوظة: متقفليش الصفحة لسه، في حاجات تحت 🙂</p>
-    </article>
-  </section>
-
-  <!-- ===== افتحي لما ===== -->
-  <section>
-    <h2 class="title">جوابات تفتحيها بعدين</h2>
-    <p class="lead">مش لازم تفتحيهم دلوقتي. خليهم لوقتهم.</p>
-    <div class="open-when" id="open-when"></div>
-  </section>
-
-  <!-- ===== التورتة ===== -->
-  <section class="cake-sec">
-    <h2 class="title">قبل ما تمشي، اطفي الشمع</h2>
-    <p class="lead">اتمني أمنية الأول، وبعدين دوسي على الشمع واحدة واحدة.</p>
-    <div class="cake" aria-label="تورتة عليها شمع">
-      <div class="candles" id="candles"></div>
-      <div class="tier top"></div>
-      <div class="tier bottom"></div>
-      <div class="plate"></div>
-    </div>
-    <p class="cake-status" id="cake-status" aria-live="polite"></p>
-  </section>
-
-  <footer>عملتها بإيدي، سطر سطر. لحبيبة وبس.</footer>
+<section class="hero">
+  <div class="name">حبيبة عمري</div><h1>كل سنة وانتي طيبة ياعمري</h1>
+  <p><span id="typed"></span><span class="caret"></span></p>
+  <div><span class="age-badge">بقيتي <b id="age">١٩</b> سنة 🎂</span></div>
+  <div class="love-meter" id="love-meter"><div class="bar"><i id="love-bar"></i></div><div class="lbl"><span>مقياس حبي ليكي</span><b>١٠٠٪ ❤</b></div></div>
+  <div class="scroll-hint">انزلي براحتك يا روحي، مفيش استعجال ↓</div>
+</section>
+<section class="reveal"><div class="count" id="count"><h2 id="count-title">فاضل على يومك</h2><div class="digits" id="digits">
+<div class="digit"><b id="d">٠</b><span>يوم</span></div><div class="digit"><b id="h">٠</b><span>ساعة</span></div><div class="digit"><b id="m">٠</b><span>دقيقة</span></div><div class="digit"><b id="s">٠</b><span>ثانية</span></div></div><p class="sub" id="count-sub">وأنا عمال أعد معاكي</p></div></section>
+<section class="reveal"><h2 class="title">حكايتنا لحد دلوقتي</h2><p class="lead">حسبتها بالثانية. مش عشان أنا رخم، بس عشان كل ثانية فيهم فرقت معايا وغيرت حياتي.</p><ol class="timeline" id="timeline"></ol></section>
+<section class="reveal"><h2 class="title">حاجات صغيرة بحبها فيكي</h2><p class="lead">القايمة الحقيقية أطول من كده بكتير، بس دول اللي جم في بالي وأنا بكتب... وحاسس إني هفضل أكتب لآخر العمر.</p><ul class="reasons" id="reasons"></ul></section>
+<section class="reveal"><h2 class="title">صور بحبها</h2><p class="lead">دوسي على أي صورة تكبر... وافتكري إن أجمل صورة فيهم هما كلهم لوجودك بس فيهم.</p><div class="gallery" id="gallery"></div></section>
+<section class="reveal"><article class="letter">
+<p class="hello">حبيبة عمري،</p>
+<p>بصراحة أنا كتبت الجواب ده ومسحته أكتر من مرة. كل مرة الكلام يطلع شكله حلو، بس مش شبهي. فقررت أكتبه زي ما بكلمك بالظبط.</p>
+<p>من ساعة ما دخلتي حياتي، بقيت شايف الدنيا بمنظار مختلف. بقيت أستنى رسالتك من غير ما آخد بالي. بقيت لما أشوف حاجة تضحك، أول حاجة أعملها أبعتهالك. واليوم الوحش بقى يخف أول ما أسمع صوتك.</p>
+<p>مش هوعدك إن كل حاجة هتبقى سهلة، بس هوعدك إني هفضل موجود. في الأيام الحلوة هبقى أول واحد بيفرحلك، وفي الأيام التقيلة هبقى جنبك حتى لو مش لاقي كلام أقوله. إنتي مش لوحدك في أي حاجة، تاني.</p>
+<p>وعايزك السنة دي تبقي أحن على نفسك شوية. إنتي بتدي اللي حواليكي كتير، وتستاهلي حد يدّيكي بنفس الطريقة. وأنا بحاول أبقى الحد ده كل يوم، وأتعلم منك أحسن.</p>
+<p>كل سنة وانتي طيبة، وكل سنة وانتي حبيبتي... وأتمنى كل سنة أكون أول واحد بيقولهالك.</p>
+<div class="sign">بحبك وبفتخر بيكي<b>مصطفى</b></div><p class="ps">ملحوظة: متقفليش الصفحة لسه، في حاجات تحت 🙂❤</p>
+</article></section>
+<section class="reveal"><h2 class="title">جوابات تفتحيها بعدين</h2><p class="lead">مش لازم تفتحيهم دلوقتي. خليهم لوقتهم... أنا حاسس إنك هتحتاجيهم.</p><div class="open-when" id="open-when"></div></section>
+<section class="cake-sec reveal"><h2 class="title">قبل ما تمشي، اطفي الشمع يا عسل</h2><p class="lead">افتحي قلبك، اتمني أمنية من كل روحك... وبعدين دوسي على الشمع واحدة واحدة.</p><div class="cake" aria-label="تورتة عليها شمع"><div class="candles" id="candles"></div><div class="tier top"></div><div class="tier bottom"></div><div class="plate"></div></div><p class="cake-status" id="cake-status" aria-live="polite"></p><div class="love-burst"><button class="btn" id="love-btn">دوسي هنا لو بتحبيني ❤</button><p class="love-count">اتدست <b id="love-count">٠</b> مرة... ولسه قلبي بيدق مع كل مرة</p></div></section>
+<footer>عملتها بإيدي، سطر سطر، بكل حبي. لحبيبة عمري وبس. <span class="fh">❤</span></footer>
 </main>
-
-<!-- ===== نافذة الصورة / الهدية ===== -->
-<div class="modal" id="photo-modal">
-  <figure>
-    <img id="modal-img" alt="">
-    <figcaption class="cap" id="modal-cap"></figcaption>
-  </figure>
-</div>
-
-<!-- ===== نافذة الأمنية والتنبيه بالهدية ===== -->
-<div class="modal" id="wish-modal">
-  <div class="wish">
-    <h3>إن شاء الله تتحقق 🤍</h3>
-    <p>مش هسألك اتمنيتي إيه. بس لو أنا جوا الأمنية دي، أوعدك إني هحاول أبقى قدها.</p>
-    <button class="btn" id="show-gift-btn">شوفي هديتك بقا 🎁</button>
-  </div>
-</div>
-
+<div class="modal" id="photo-modal"><figure><img id="modal-img" alt=""><figcaption class="cap" id="modal-cap"></figcaption></figure></div>
+<div class="modal" id="wish-modal"><div class="wish"><h3>إن شاء الله تتحقق 🤍</h3><p>مش هسألك اتمنيتي إيه. بس لو أنا جوا الأمنية دي، أوعدك إني هحاول أبقى قدها... ولو مش جواها، هتعلم أكون.</p><button class="btn" id="show-gift-btn">شوفي هديتك بقا 🎁</button></div></div>
 <script>
-var CONFIG = {
-  birthYear: 2007,
-  birthMonth: 10,
-  birthDay: 16,
-
-  memories: [
-    { title: 'أول مرة اتكلمنا', date: '2024-05-22T00:00:00' },
-    { title: 'أول مرة اتقابلنا', date: '2024-10-26T00:00:00' },
-    { title: 'يوم ما اعترفتلك بحبي', date: '2025-02-01T00:00:00' }
-  ],
-
-  reasons: [
-    'ضحكتك لما تحاولي تمسكيها وتفشلي، فتضحكي أكتر',
-    'إنك بتفتكري حاجات قلتها من شهور، وأنا نفسي ناسيها',
-    'لما تتحمسي لحاجة وتحكيها بسرعة لدرجة إن الكلام بيسبق بعضه',
-    'إن الكلام معاكي عمره ما بيخلص، حتى لو بنتكلم في ولا حاجة',
-    'إنك بتخليني عايز أبقى أحسن، من غير ما تطلبي ده أصلاً'
-  ],
-
-  photos: [
-    { src: 'images/MY BABE PHOTO.jpeg', caption: 'الضحكة دي' },
-    { src: 'images/my babe photo 2.jpeg', caption: 'يوم حلو' },
-    { src: 'images/my babe photo 3.jpeg', caption: 'إنتي' }
-  ],
-
-  openWhen: [
-    { title: 'افتحيه لما تكوني زعلانة', text: 'خدي نفس الأول. مش لازم تبقي كويسة دلوقتي حالاً. كلميني، ولو مش عايزة تتكلمي ابعتيلي قلب بس، وأنا هفهم.' },
-    { title: 'افتحيه لما أوحشك', text: 'وإنتي كمان وحشاني، أكيد. وغالباً وإنتي بتقري الكلام ده أنا بفكر فيكي في نفس اللحظة.' },
-    { title: 'افتحيه لما تكوني مضغوطة', text: 'إنتي عديتي حاجات أصعب من كده قبل كده. خدي بريك، اشربي مية، وارجعي. أنا واثق فيكي أكتر ما إنتي واثقة في نفسك.' },
-    { title: 'افتحيه لما تشكي في نفسك', text: 'ارجعي اقري الحاجات اللي فوق تاني. دي مش مجاملة، دي حاجات أنا شايفها فيكي بجد كل يوم.' }
-  ],
-
-  candles: 5
+var CONFIG={
+ birthYear:2007,birthMonth:10,birthDay:16,
+ memories:[{title:'أول مرة اتكلمنا',date:'2024-05-22T00:00:00'},{title:'أول مرة اتقابلنا',date:'2024-10-26T00:00:00'},{title:'يوم ما اعترفتلك بحبي',date:'2025-02-01T00:00:00'}],
+ reasons:['ضحكتك لما تحاولي تمسكيها وتفشلي، فتضحكي أكتر وتخليني أضحك من قلبي','إنك بتفتكري حاجات قلتها من شهور، وأنا نفسي ناسيها... إنتي بتحفظيني كويس أوي','لما تتحمسي لحاجة وتحكيها بسرعة لدرجة إن الكلام بيسبق بعضه، وأنا ببص لك وساكت ومبسوط','إن الكلام معاكي عمره ما بيخلص، حتى لو بنتكلم في ولا حاجة','إنك بتخليني عايز أبقى أحسن، من غير ما تطلبي ده أصلاً','طريقتك في الهدايا الصغيرة اللي بتفرق يومي كله','صوتك لما بتقولي «أنا تعبت» وأنا عايز أجري أشيل الدنيا عنك','إنك بتكوني جميلة وأنتي مش واخدة بالك أصلاً'],
+ photos:[{src:'images/MY BABE PHOTO.jpeg',caption:'الضحكة دي ❤'},{src:'images/my babe photo 2.jpeg',caption:'يوم حلو'},{src:'images/my babe photo 3.jpeg',caption:'إنتي... وبس'}],
+ openWhen:[{title:'افتحيه لما تكوني زعلانة',text:'خدي نفس الأول يا حبيبتي. مش لازم تبقي كويسة دلوقتي حالاً. كلميني، ولو مش عايزة تتكلمي ابعتيلي قلب بس، وأنا هفهم... وأنا جاي.'},{title:'افتحيه لما أوحشك',text:'وإنتي كمان وحشاني، أكيد. وغالباً وإنتي بتقري الكلام ده أنا بفكر فيكي في نفس اللحظة. افتكري إن قلبي ماشي معاكي في كل خطوة.'},{title:'افتحيه لما تكوني مضغوطة',text:'إنتي عديتي حاجات أصعب من كده قبل كده يا قوية. خدي بريك، اشربي مية، وارجعي. أنا واثق فيكي أكتر ما إنتي واثقة في نفسك... وده مش كلام مجاملة.'},{title:'افتحيه لما تشكي في نفسك',text:'ارجعي اقري الحاجات اللي فوق تاني. دي مش مجاملة، دي حاجات أنا شايفها فيكي بجد كل يوم. إنتي أحسن مما بتفتكري، وأنا شاهد.'},{title:'افتحيه لما تكوني مبسوطة',text:'فرحتي بفرحك مش كلام. قوليلي خبرك الأول، أنا عايز أكون أول واحد يشاركك. مبسوط إنك مبسوطة يا أجمل حاجة حصلتلي.'}],
+ candles:5
 };
-
-function $(id) {
-  return document.getElementById(id);
-}
-
-function ar(n) {
-  return String(n).replace(/\d/g, function(d) {
-    return '٠١٢٣٤٥٦٧٨٩'[d];
-  });
-}
-
-function pad(n) {
-  return String(n).padStart(2, '0');
-}
-
-function plural(n, one, two, few, many) {
-  if (n === 1) return one;
-  if (n === 2) return two;
-  if (n >= 3 && n <= 10) return ar(n) + ' ' + few;
-  return ar(n) + ' ' + many;
-}
-
-function yearsTxt(n) { return plural(n, 'سنة', 'سنتين', 'سنين', 'سنة'); }
-function monthsTxt(n) { return plural(n, 'شهر', 'شهرين', 'شهور', 'شهر'); }
-function daysTxt(n) { return plural(n, 'يوم', 'يومين', 'أيام', 'يوم'); }
-
-function ymd(from, to) {
-  var y = to.getFullYear() - from.getFullYear();
-  var m = to.getMonth() - from.getMonth();
-  var d = to.getDate() - from.getDate();
-  if (d < 0) {
-    m--;
-    d += new Date(to.getFullYear(), to.getMonth(), 0).getDate();
-  }
-  if (m < 0) {
-    y--;
-    m += 12;
-  }
-  return { y: y, m: m, d: d };
-}
-
-function bday(y) {
-  return new Date(y, CONFIG.birthMonth - 1, CONFIG.birthDay);
-}
-
-function nextBirthday(now) {
-  var b = bday(now.getFullYear());
-  if (now >= new Date(b.getTime() + 864e5)) {
-    b = bday(now.getFullYear() + 1);
-  }
-  return b;
-}
-
-function shownAge(now) {
-  var next = nextBirthday(now);
-  var prev = bday(next.getFullYear() - 1);
-  var closest = (next - now) < (now - prev) ? next : prev;
-  return closest.getFullYear() - CONFIG.birthYear;
-}
-
-$('age').textContent = ar(shownAge(new Date()));
-
-var celebrated = false;
-function tick() {
-  var now = new Date();
-  var b = nextBirthday(now);
-  var diff = b - now;
-
-  if (diff <= 0) {
-    $('count-title').style.display = 'none';
-    $('count-sub').style.display = 'none';
-    $('digits').innerHTML = '<p class="today-msg">النهارده يومك 🎂<br>ومش هسيبك تنسي ده</p>';
-    if (!celebrated && $('gate').classList.contains('gone')) {
-      celebrated = true;
-      party(200);
-    }
-  } else {
-    var t = Math.floor(diff / 1000);
-    var days = Math.floor(t / 86400);
-    t %= 86400;
-    $('d').textContent = ar(days);
-    $('h').textContent = ar(Math.floor(t / 3600));
-    $('m').textContent = ar(Math.floor((t % 3600) / 60));
-    $('s').textContent = ar(t % 60);
-    $('count-sub').textContent = days === 0 ? 'خلاص، بكرة يومك' : (days < 7 ? 'قربنا أوي' : 'وأنا عمال أعد معاكي');
-  }
-  updateTimeline(now);
-}
-
-var MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-
-function initTimeline() {
-  var html = '';
-  for (var i = 0; i < CONFIG.memories.length; i++) {
-    var m = CONFIG.memories[i];
-    var d = new Date(m.date);
-    html += '<li>' +
-      '<h3>' + m.title + '</h3>' +
-      '<div class="when">' + ar(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + ar(d.getFullYear()) + '</div>' +
-      '<div class="since" id="since-' + i + '"></div>' +
-      '<div class="boxes" id="live-' + i + '">' +
-        '<div class="box"><b class="b-d">٠</b><span>يوم</span></div>' +
-        '<div class="box"><b class="b-h">٠</b><span>ساعة</span></div>' +
-        '<div class="box"><b class="b-m">٠</b><span>دقيقة</span></div>' +
-        '<div class="box"><b class="b-s">٠</b><span>ثانية</span></div>' +
-      '</div>' +
-    '</li>';
-  }
-  $('timeline').innerHTML = html;
-}
-
-function updateTimeline(now) {
-  for (var i = 0; i < CONFIG.memories.length; i++) {
-    var m = CONFIG.memories[i];
-    var from = new Date(m.date);
-    var res = ymd(from, now);
-    var y = res.y, mo = res.m, d = res.d;
-    var parts = [];
-    if (y) parts.push(yearsTxt(y));
-    if (mo) parts.push(monthsTxt(mo));
-    if (d) parts.push(daysTxt(d));
-    
-    var sinceElem = $('since-' + i);
-    if (sinceElem) {
-      sinceElem.textContent = parts.length ? 'من ' + parts.join(' و') : 'النهارده بالظبط';
-    }
-
-    var t = Math.floor((now - from) / 1000);
-    var days = Math.floor(t / 86400);
-    t %= 86400;
-    var box = $('live-' + i);
-    if (box) {
-      box.querySelector('.b-d').textContent = ar(days);
-      box.querySelector('.b-h').textContent = ar(pad(Math.floor(t / 3600)));
-      box.querySelector('.b-m').textContent = ar(pad(Math.floor((t % 3600) / 60)));
-      box.querySelector('.b-s').textContent = ar(pad(t % 60));
-    }
-  }
-}
-
-var reasonsHtml = '';
-for (var r = 0; r < CONFIG.reasons.length; r++) {
-  reasonsHtml += '<li>' + CONFIG.reasons[r] + '</li>';
-}
-$('reasons').innerHTML = reasonsHtml;
-
-var openWhenHtml = '';
-for (var o = 0; o < CONFIG.openWhen.length; o++) {
-  var item = CONFIG.openWhen[o];
-  openWhenHtml += '<details><summary>' + item.title + '</summary><p>' + item.text + '</p></details>';
-}
-$('open-when').innerHTML = openWhenHtml;
-
-var galleryHtml = '';
-for (var g = 0; g < CONFIG.photos.length; g++) {
-  var p = CONFIG.photos[g];
-  if (p.src) {
-    galleryHtml += '<figure data-i="' + g + '" tabindex="0"><img src="' + p.src + '" alt="' + p.caption + '" loading="lazy"><figcaption>' + p.caption + '</figcaption></figure>';
-  } else {
-    galleryHtml += '<figure class="empty" aria-label="' + p.caption + '">🤍<figcaption>' + p.caption + '</figcaption></figure>';
-  }
-}
-$('gallery').innerHTML = galleryHtml;
-
-$('gallery').addEventListener('click', function(e) {
-  var f = e.target.closest('figure[data-i]');
-  if (!f) return;
-  var p = CONFIG.photos[f.getAttribute('data-i')];
-  $('modal-img').src = p.src;
-  $('modal-img').alt = p.caption;
-  $('modal-cap').textContent = p.caption;
-  $('photo-modal').classList.add('open');
-});
-
-$('gallery').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') e.target.click();
-});
-
-var modals = document.querySelectorAll('.modal');
-for (var mi = 0; mi < modals.length; mi++) {
-  modals[mi].addEventListener('click', function(e) {
-    if (e.target === this || e.target.hasAttribute('data-close') || this.id === 'photo-modal') {
-      this.classList.remove('open');
-    }
-  });
-}
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    var openModals = document.querySelectorAll('.modal.open');
-    for (var om = 0; om < openModals.length; om++) {
-      openModals[om].classList.remove('open');
-    }
-  }
-});
-
-// زرار الانتقال المباشر لـ هدية الخاتم
-$('show-gift-btn').onclick = function() {
-  $('wish-modal').classList.remove('open');
-  $('modal-img').src = 'images/my babe gift.jpg';
-  $('modal-img').alt = 'هدية الخاتم';
-  $('modal-cap').textContent = 'أحلى خاتم لأحلى حبيبة 💍';
-  $('photo-modal').classList.add('open');
-  party(150);
-};
-
-function party(n) {
-  if (n === undefined) n = 120;
-  if (window.confetti) {
-    confetti({
-      particleCount: n,
-      spread: 85,
-      origin: { y: 0.6 },
-      colors: ['#C8446B', '#F6D6DC', '#C9A24A', '#ffffff']
-    });
-  }
-}
-
-var candlesHtml = '';
-for (var ci = 0; ci < CONFIG.candles; ci++) {
-  candlesHtml += '<button class="candle" aria-label="اطفي الشمعة ' + ar(ci + 1) + '"><span class="flame"></span></button>';
-}
-$('candles').innerHTML = candlesHtml;
-
-var blown = 0;
-$('candles').addEventListener('click', function(e) {
-  var c = e.target.closest('.candle');
-  if (!c || c.classList.contains('out')) return;
-  c.classList.add('out');
-  blown++;
-  var left = CONFIG.candles - blown;
-  if (left === 0) {
-    $('cake-status').textContent = 'طفيتيهم كلهم 🎉';
-    party(180);
-    setTimeout(function() {
-      $('wish-modal').classList.add('open');
-    }, 900);
-  } else {
-    $('cake-status').textContent = left === 1 ? 'آخر واحدة…' : (left === 2 ? 'فاضل اتنين' : 'كمان ' + ar(left));
-  }
-});
-
-$('open-btn').onclick = function() {
-  var gate = $('gate');
-  gate.classList.add('opening');
-  setTimeout(function() {
-    gate.classList.add('gone');
-    document.body.classList.remove('locked');
-    party(160);
-  }, 1100);
-};
-
-initTimeline();
-tick();
-setInterval(tick, 1000);
+function $(id){return document.getElementById(id)}
+function ar(n){return String(n).replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[d]})}
+function pad(n){return String(n).padStart(2,'0')}
+function plural(n,one,two,few,many){if(n===1)return one;if(n===2)return two;if(n>=3&&n<=10)return ar(n)+' '+few;return ar(n)+' '+many}
+function yearsTxt(n){return plural(n,'سنة','سنتين','سنين','سنة')}function monthsTxt(n){return plural(n,'شهر','شهرين','شهور','شهر')}function daysTxt(n){return plural(n,'يوم','يومين','أيام','يوم')}
+function ymd(from,to){var y=to.getFullYear()-from.getFullYear(),m=to.getMonth()-from.getMonth(),d=to.getDate()-from.getDate();if(d<0){m--;d+=new Date(to.getFullYear(),to.getMonth(),0).getDate()}if(m<0){y--;m+=12}return{y:y,m:m,d:d}}
+function bday(y){return new Date(y,CONFIG.birthMonth-1,CONFIG.birthDay)}
+function nextBirthday(now){var b=bday(now.getFullYear());if(now>=new Date(b.getTime()+864e5))b=bday(now.getFullYear()+1);return b}
+function shownAge(now){var next=nextBirthday(now),prev=bday(next.getFullYear()-1),closest=(next-now)<(now-prev)?next:prev;return closest.getFullYear()-CONFIG.birthYear}
+$('age').textContent=ar(shownAge(new Date()));
+var heartsCv=$('hearts-canvas'),hctx=heartsCv.getContext('2d'),hearts=[];
+function sizeHearts(){heartsCv.width=innerWidth;heartsCv.height=innerHeight}sizeHearts();addEventListener('resize',sizeHearts);
+var HEART_COLORS=['rgba(200,68,107,','rgba(229,138,165,','rgba(201,162,74,'];
+function spawnHeart(burst){hearts.push({x:burst?innerWidth/2+(Math.random()-.5)*220:Math.random()*innerWidth,y:burst?innerHeight*.75:innerHeight+30,vy:-(.4+Math.random()*.9),vx:burst?(Math.random()-.5)*3:(Math.random()-.5)*.4,s:8+Math.random()*14,a:.12+Math.random()*.25,c:HEART_COLORS[Math.floor(Math.random()*HEART_COLORS.length)],r:(Math.random()-.5)*.6})}
+for(var hi=0;hi<14;hi++){spawnHeart();hearts[hearts.length-1].y=Math.random()*innerHeight}
+(function heartLoop(){hctx.clearRect(0,0,heartsCv.width,heartsCv.height);for(var i=hearts.length-1;i>=0;i--){var h=hearts[i];h.x+=h.vx;h.y+=h.vy;h.r+=.005;hctx.save();hctx.translate(h.x,h.y);hctx.rotate(h.r);hctx.fillStyle=h.c+h.a+')';hctx.font=h.s+'px serif';hctx.textAlign='center';hctx.fillText('❤',0,0);hctx.restore();if(h.y< -40||h.x< -60||h.x>innerWidth+60)hearts.splice(i,1)}if(hearts.length<14)spawnHeart();requestAnimationFrame(heartLoop)})();
+function heartBurst(n){for(var i=0;i<n;i++)spawnHeart(true)}
+var typedLines=['سنة جديدة، وأنا لسه باختارك كل يوم.','كل سنة وانتي الحب كله.','الدنيا بحلوها... عشان فيكي إنتي.'],tLi=0,tCi=0,typedEl=$('typed');
+function typeLoop(){var line=typedLines[tLi];if(tCi<=line.length){typedEl.textContent=line.slice(0,tCi);tCi++;setTimeout(typeLoop,55)}else setTimeout(function(){tCi=0;tLi=(tLi+1)%typedLines.length;typeLoop()},2600)}typeLoop();
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('shown');io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+setTimeout(function(){$('love-bar').style.width='100%'},1200);
+var celebrated=false;
+function tick(){var now=new Date(),b=nextBirthday(now),diff=b-now;if(diff<=0){$('count-title').style.display='none';$('count-sub').style.display='none';$('digits').innerHTML='<p class="today-msg">النهارده يومك 🎂<br>ومش هسيبك تنسي ده أبداً</p>';if(!celebrated&&$('gate').classList.contains('gone')){celebrated=true;party(200)}}else{var t=Math.floor(diff/1000),days=Math.floor(t/86400);t%=86400;$('d').textContent=ar(days);$('h').textContent=ar(Math.floor(t/3600));$('m').textContent=ar(Math.floor((t%3600)/60));$('s').textContent=ar(t%60);$('count-sub').textContent=days===0?'خلاص، بكرة يومك يا عمري':(days<7?'قربنا أوي... قلبي بيدق':'وأنا عمال أعد معاكي')}updateTimeline(now)}
+var MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function initTimeline(){var html='';for(var i=0;i<CONFIG.memories.length;i++){var m=CONFIG.memories[i],d=new Date(m.date);html+='<li><h3>'+m.title+'</h3><div class="when">'+ar(d.getDate())+' '+MONTHS[d.getMonth()]+' '+ar(d.getFullYear())+'</div><div class="since" id="since-'+i+'"></div><div class="boxes" id="live-'+i+'"><div class="box"><b class="b-d">٠</b><span>يوم</span></div><div class="box"><b class="b-h">٠</b><span>ساعة</span></div><div class="box"><b class="b-m">٠</b><span>دقيقة</span></div><div class="box"><b class="b-s">٠</b><span>ثانية</span></div></div></li>'}$('timeline').innerHTML=html}
+function updateTimeline(now){for(var i=0;i<CONFIG.memories.length;i++){var from=new Date(CONFIG.memories[i].date),res=ymd(from,now),parts=[];if(res.y)parts.push(yearsTxt(res.y));if(res.m)parts.push(monthsTxt(res.m));if(res.d)parts.push(daysTxt(res.d));var sinceElem=$('since-'+i);if(sinceElem)sinceElem.textContent=parts.length?'من '+parts.join(' و'):'النهارده بالظبط ❤';var t=Math.floor((now-from)/1000),days=Math.floor(t/86400);t%=86400;var box=$('live-'+i);if(box){box.querySelector('.b-d').textContent=ar(days);box.querySelector('.b-h').textContent=ar(pad(Math.floor(t/3600)));box.querySelector('.b-m').textContent=ar(pad(Math.floor((t%3600)/60)));box.querySelector('.b-s').textContent=ar(pad(t%60))}}}
+$('reasons').innerHTML=CONFIG.reasons.map(function(r){return '<li>'+r+'</li>'}).join('');
+$('open-when').innerHTML=CONFIG.openWhen.map(function(item){return '<details><summary>'+item.title+'</summary><p>'+item.text+'</p></details>'}).join('');
+$('gallery').innerHTML=CONFIG.photos.map(function(p,g){return p.src?'<figure data-i="'+g+'" tabindex="0"><img src="'+p.src+'" alt="'+p.caption+'" loading="lazy"><figcaption>'+p.caption+'</figcaption></figure>':'<figure class="empty">'+p.caption+'</figure>'}).join('');
+$('gallery').addEventListener('click',function(e){var f=e.target.closest('figure[data-i]');if(!f)return;var p=CONFIG.photos[f.getAttribute('data-i')];$('modal-img').src=p.src;$('modal-img').alt=p.caption;$('modal-cap').textContent=p.caption;$('photo-modal').classList.add('open')});
+$('gallery').addEventListener('keydown',function(e){if(e.key==='Enter')e.target.click()});
+var modals=document.querySelectorAll('.modal');for(var mi=0;mi<modals.length;mi++){modals[mi].addEventListener('click',function(e){if(e.target===this||e.target.hasAttribute('data-close')||this.id==='photo-modal')this.classList.remove('open')})}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(function(m){m.classList.remove('open')})});
+$('show-gift-btn').onclick=function(){$('wish-modal').classList.remove('open');$('modal-img').src='images/my babe gift.jpg';$('modal-img').alt='هدية الخاتم';$('modal-cap').textContent='أحلى خاتم لأحلى حبيبة عمري 💍';$('photo-modal').classList.add('open');party(150)};
+function party(n){if(n===undefined)n=120;if(window.confetti)confetti({particleCount:n,spread:85,origin:{y:.6},colors:['#C8446B','#F6D6DC','#C9A24A','#ffffff']})}
+$('candles').innerHTML=Array.from({length:CONFIG.candles},function(_,i){return '<button class="candle" aria-label="اطفي الشمعة '+ar(i+1)+'"><span class="flame"></span></button>'}).join('');
+var blown=0;$('candles').addEventListener('click',function(e){var c=e.target.closest('.candle');if(!c||c.classList.contains('out'))return;c.classList.add('out');blown++;var left=CONFIG.candles-blown;if(left===0){$('cake-status').textContent='طفيتيهم كلهم يا حبيبتي 🎉 أمنية من قلبك... سمعتها.';party(180);heartBurst(10);setTimeout(function(){$('wish-modal').classList.add('open')},900)}else $('cake-status').textContent=left===1?'آخر واحدة... اتمني كويس':(left===2?'فاضل اتنين':'كمان '+ar(left))});
+var loveClicks=0;$('love-btn').addEventListener('click',function(){loveClicks++;$('love-count').textContent=ar(loveClicks);heartBurst(8);party(40);var msgs=['وأنا أكتر ❤','شوفتي؟ قلبي واقف 🙂','كفاية كده هتموتيني 😂❤','مفيش رجعة، إنتي ملكي ❤'];this.textContent=msgs[Math.min(loveClicks-1,msgs.length-1)]+' ❤'});
+var GATE_PASS='16102007';$('open-btn').onclick=function(){var inp=$('gate-pass');if(inp.value.trim()!==GATE_PASS){inp.classList.remove('wrong');void inp.offsetWidth;inp.classList.add('wrong');$('gate-error').textContent='كلمة السر دي مش صح... فكري في يوم ميلادك 🎂';inp.value='';inp.focus();return}$('gate-error').textContent='';var gate=$('gate');gate.classList.add('opening');heartBurst(14);setTimeout(function(){gate.classList.add('gone');document.body.classList.remove('locked');party(160)},1100)};
+$('gate-pass').addEventListener('keydown',function(e){if(e.key==='Enter')$('open-btn').click()});
+initTimeline();tick();setInterval(tick,1000);
 </script>
 </body>
 </html>
