@@ -42,8 +42,14 @@
     --paper:#1C1216;--card:#281A20;--ink:#F3E6E9;--muted:#B89BA3;
     --line:#3E2A32;--title:#F2B7C6;--shadow:rgba(0,0,0,.45);
   }
+  /* 🌙 وضع الليل (من ١٢ بالليل لـ ٥ الصبح) */
+  :root[data-night="1"]{
+    --paper:#130D1F;--card:#1F1631;--ink:#EEE6F6;--muted:#AE9FC4;
+    --line:#352850;--title:#F5C9D8;--shadow:rgba(0,0,0,.55);--rose:#E26A8F;
+  }
 
   *,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+  [hidden]{display:none!important}
   html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
   body{font-family:var(--sans);color:var(--ink);line-height:1.8;overflow-x:hidden;
     background:
@@ -53,6 +59,12 @@
       var(--paper);
     transition:background .5s ease;
   }
+  :root[data-night="1"] body{
+    background:
+      radial-gradient(900px 600px at 80% -10%, rgba(140,90,200,.22), transparent 60%),
+      radial-gradient(700px 500px at 10% 40%, rgba(226,106,143,.14), transparent 60%),
+      linear-gradient(180deg,#0E0918,#1A1030 60%,#130D1F);
+  }
   img{max-width:100%;display:block}
   button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
@@ -60,6 +72,27 @@
 
   /* القلوب الطايرة */
   #hearts-canvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+
+  /* النجوم بتاعة الليل */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity 1.2s ease;
+    background-image:
+      radial-gradient(1.6px 1.6px at 20px 30px,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 90px 120px,#fff 50%,transparent 51%),
+      radial-gradient(1.4px 1.4px at 170px 60px,#FFE3EC 50%,transparent 51%),
+      radial-gradient(1px 1px at 230px 190px,#fff 50%,transparent 51%),
+      radial-gradient(2px 2px at 60px 220px,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 140px 250px,#E9D9FF 50%,transparent 51%),
+      radial-gradient(1.3px 1.3px at 250px 20px,#fff 50%,transparent 51%);
+    background-size:270px 270px;
+    animation:twinkle 4s ease-in-out infinite alternate}
+  :root[data-night="1"] .stars{opacity:.85}
+  @keyframes twinkle{from{filter:brightness(.55)}to{filter:brightness(1.3)}}
+  .night-note{
+    display:none;align-items:center;gap:8px;margin:0 auto 22px;padding:9px 20px;border-radius:999px;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--title);
+    font-family:var(--serif);font-size:clamp(16px,3.6vw,19px);
+  }
+  :root[data-night="1"] .night-note{display:inline-flex}
 
   /* ظهور ناعم عند النزول */
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
@@ -120,7 +153,7 @@
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:999px;
     background:linear-gradient(135deg,var(--rose),#A9325A);color:#fff;font-weight:700;font-size:17px;width:100%;
-    box-shadow:0 12px 26px -10px rgba(200,68,107,.55);
+    box-shadow:0 12px 26px -10px rgba(200,68,107,.55);text-decoration:none;
     transition:transform .2s ease,box-shadow .2s ease;
   }
   .btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(200,68,107,.65)}
@@ -218,6 +251,25 @@
   .timeline .box b{font-family:var(--sans);font-weight:700;font-size:clamp(22px,6vw,32px);line-height:1;font-variant-numeric:tabular-nums}
   .timeline .box span{font-size:13px;opacity:.8;margin-top:6px}
 
+  /* 💓 نبض قلبي */
+  .pulse{
+    width:100%;margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:22px;
+    padding:20px;display:flex;align-items:center;gap:16px;text-align:right;
+    box-shadow:0 14px 30px -20px var(--shadow);-webkit-tap-highlight-color:transparent;user-select:none;
+  }
+  .pulse .ph{font-size:46px;line-height:1;color:var(--rose);flex-shrink:0;display:inline-block;will-change:transform}
+  .pulse .ecg{
+    flex:1;min-width:0;height:60px;position:relative;overflow:hidden;color:var(--rose);display:block;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+  }
+  .pulse .ecg svg{position:absolute;left:0;top:0;width:200%;height:100%;will-change:transform}
+  .pulse .info{flex-shrink:0;min-width:72px;text-align:center}
+  .pulse .bpm{display:block;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1.1;color:var(--title);font-variant-numeric:tabular-nums}
+  .pulse .bpm-l{display:block;font-size:12px;color:var(--muted)}
+  .pulse-msg{text-align:center;font-family:var(--serif);font-size:clamp(19px,4vw,22px);color:var(--rose);min-height:1.9em;margin-top:14px;opacity:0;transition:opacity .5s}
+  .pulse-msg.show{opacity:1}
+
   /* حاجات بحبها */
   .reasons{list-style:none;margin-top:24px}
   .reasons li{
@@ -228,6 +280,19 @@
   .reasons li:hover{background:var(--card);transform:translateX(-4px)}
   .reasons li:last-child{border-bottom:0}
   .reasons li::before{content:"❤";color:var(--rose);font-size:16px;margin-top:8px;flex-shrink:0}
+
+  /* 🌹 الوردة */
+  .rose-sec{min-height:175vh;padding:40px 0}
+  .rose-stick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 5vh);text-align:center}
+  .rose-stick .lead{margin:0 auto}
+  #rose{display:block;width:min(290px,72vw);height:auto;max-height:50svh;margin:16px auto 6px;overflow:visible;filter:drop-shadow(0 18px 26px var(--shadow))}
+  .rose-hint{color:var(--muted);font-size:14px;transition:opacity .5s}
+  .rose-text{
+    font-family:var(--serif);font-size:clamp(21px,4.6vw,27px);color:var(--title);line-height:1.7;
+    max-width:24ch;margin:0 auto;opacity:0;transform:translateY(12px);transition:opacity .9s ease,transform .9s ease;
+  }
+  .rose-sec.bloomed .rose-text{opacity:1;transform:none}
+  .rose-sec.bloomed .rose-hint{opacity:0}
 
   /* الصور */
   .gallery{display:grid;gap:14px;margin-top:26px;grid-template-columns:repeat(2,1fr)}
@@ -240,6 +305,26 @@
     position:absolute;inset:auto 0 0 0;padding:28px 16px 12px;color:#fff;font-size:15px;font-weight:500;
     background:linear-gradient(to top,rgba(58,20,35,.75),transparent);
   }
+
+  /* 📸 كاميرا المفاجأة */
+  .cam{margin-top:24px;text-align:center}
+  .cam-stage{
+    position:relative;width:min(400px,100%);aspect-ratio:3/4;margin:0 auto 16px;border-radius:26px;overflow:hidden;
+    background:linear-gradient(150deg,var(--wine-deep),var(--wine));border:5px solid var(--card);
+    box-shadow:0 26px 50px -24px var(--shadow);
+  }
+  .cam-stage video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block}
+  .cam-stage canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .cam-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+  .cam-flash.go{animation:flash .55s ease-out}
+  @keyframes flash{from{opacity:.95}to{opacity:0}}
+  .cam-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .cam-btns .btn{width:auto}
+  .cam-msg{color:var(--muted);margin-top:12px;min-height:1.6em;font-size:15px}
+  .cam-shot{margin-top:18px}
+  .cam-shot img{width:min(300px,80%);margin:0 auto 14px;border-radius:18px;border:5px solid var(--card);transform:rotate(2deg);box-shadow:0 22px 44px -22px var(--shadow)}
+  .cam-shot .btn{width:auto}
+  .cam-shot small{display:block;color:var(--muted);margin-top:8px;font-size:13px}
 
   /* الجواب */
   .letter{
@@ -258,6 +343,11 @@
   .letter .sign{margin-top:30px;text-align:left;color:var(--rose)}
   .letter .sign b{display:block;font-family:var(--hand);font-size:1.6em;font-weight:400}
   .letter .ps{margin-top:26px;font-size:.85em;color:var(--muted);border-top:1px dashed var(--line);padding-top:16px}
+
+  /* ⏳ رسالة من المستقبل */
+  .letter.future{margin-top:30px;border-color:rgba(201,162,74,.5)}
+  .letter.future::before{content:"⏳";background:radial-gradient(circle at 35% 30%,#E6C878,var(--gold));box-shadow:0 8px 18px -6px rgba(201,162,74,.6)}
+  .letter .date{font-family:var(--sans);font-size:15px;color:var(--gold);text-align:left;margin-bottom:6px}
 
   /* افتحي لما */
   .open-when{display:grid;gap:12px;margin-top:24px}
@@ -315,8 +405,15 @@
   .watch-eyes.done .pupil{display:none}
   .watch-eyes.done .eye{background:transparent;border-color:transparent;box-shadow:none;overflow:visible}
   .watch-eyes.done .eye::before{content:"";position:absolute;left:2px;right:2px;top:6px;height:22px;border:4px solid transparent;border-top:4px solid var(--wine);border-radius:50%}
-  .hooof-btn{width:auto;margin-top:4px}
-  .hooof-btn:disabled{opacity:.6;cursor:default}
+  .cake-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .hooof-btn{width:auto}
+  .hooof-btn:disabled,.mic-btn:disabled{opacity:.6;cursor:default}
+
+  /* 🎤 المايك */
+  .mic-btn.listening{background:linear-gradient(135deg,var(--rose),#A9325A);color:#fff;animation:micPulse 1.4s ease-in-out infinite}
+  @keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,68,107,.5)}50%{box-shadow:0 0 0 12px rgba(200,68,107,0)}}
+  .mic-level{width:min(260px,70vw);height:8px;border-radius:999px;background:var(--line);margin:14px auto 0;overflow:hidden}
+  .mic-level i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose-soft),var(--rose));transition:width .08s linear}
 
   /* زرار الحب */
   .love-burst{margin-top:34px}
@@ -340,6 +437,8 @@
   @media (max-width:480px){
     .gallery{grid-template-columns:1fr}
     .gallery figure:first-child{grid-column:span 1}
+    .pulse{padding:16px;gap:12px}
+    .pulse .ph{font-size:38px}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -348,11 +447,11 @@
   }
 </style>
 <base target="_blank">
-<base target="_blank">
 </head>
 <body class="locked">
 
 <canvas id="hearts-canvas" aria-hidden="true"></canvas>
+<div class="stars" aria-hidden="true"></div>
 
 <!-- ===== الظرف ===== -->
 <div id="gate" role="dialog" aria-label="افتحي الهدية">
@@ -370,6 +469,7 @@
 
   <!-- ===== البداية ===== -->
   <section class="hero">
+    <div><span class="night-note">🌙 الدنيا نايمة… وأنا صاحي أفكر فيكي</span></div>
     <div class="name-wrap">
       <img class="name-photo" src="images/my small babe.jpeg" alt="" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
       <div class="name">حبيبة عمري</div>
@@ -405,6 +505,18 @@
     <ol class="timeline" id="timeline"></ol>
   </section>
 
+  <!-- ===== 💓 نبض قلبي ===== -->
+  <section class="reveal">
+    <h2 class="title">نبض قلبي</h2>
+    <p class="lead">ده قلبي على الهوا مباشرة... جربي دوسي عليه.</p>
+    <button class="pulse" id="pulse" aria-label="نبض قلبي، دوسي عليه">
+      <span class="ph" id="pulse-heart">❤</span>
+      <span class="ecg" aria-hidden="true"><svg id="ecg" viewBox="0 0 1200 60" preserveAspectRatio="none"><path id="ecg-path" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <span class="info"><span class="bpm" id="bpm">٧٢</span><span class="bpm-l">نبضة في الدقيقة</span></span>
+    </button>
+    <p class="pulse-msg" id="pulse-msg" aria-live="polite"></p>
+  </section>
+
   <!-- ===== حاجات بحبها ===== -->
   <section class="reveal">
     <h2 class="title">حاجات صغيرة بحبها فيكي</h2>
@@ -412,11 +524,46 @@
     <ul class="reasons" id="reasons"></ul>
   </section>
 
+  <!-- ===== 🌹 الوردة ===== -->
+  <section class="rose-sec" id="rose-sec">
+    <div class="rose-stick">
+      <h2 class="title">وردة ليكي</h2>
+      <p class="lead">كل ما تنزلي، هتتفتح شوية.</p>
+      <svg id="rose" viewBox="0 0 300 340" aria-hidden="true"></svg>
+      <p class="rose-hint">كملي نزول يا روحي… 🌹</p>
+      <p class="rose-text">زيك بالظبط… كل يوم بكتشف فيكي حاجة جديدة</p>
+    </div>
+  </section>
+
   <!-- ===== الصور ===== -->
   <section class="reveal">
     <h2 class="title">صور بحبها</h2>
     <p class="lead">دوسي على أي صورة تكبر... وافتكري إن أجمل صورة فيهم هما كلهم لوجودك بس فيهم.</p>
     <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ===== 📸 كاميرا المفاجأة ===== -->
+  <section class="reveal">
+    <h2 class="title">كاميرا المفاجأة 📸</h2>
+    <p class="lead">افتحي الكاميرا وبصي كويس... هتشوفي أجمل حاجة في الدنيا. ولو عجبتك (وهتعجبك) صوريها.</p>
+    <div class="cam">
+      <div class="cam-stage" id="cam-stage" hidden>
+        <video id="cam-video" playsinline muted autoplay></video>
+        <canvas id="cam-overlay"></canvas>
+        <div class="cam-flash" id="cam-flash"></div>
+      </div>
+      <div class="cam-btns">
+        <button class="btn" id="cam-open">📸 افتحي الكاميرا</button>
+        <button class="btn" id="cam-snap" hidden>صوريني 📷</button>
+        <button class="btn light" id="cam-close" hidden>اقفلي الكاميرا</button>
+      </div>
+      <p class="cam-msg" id="cam-msg" aria-live="polite"></p>
+      <div class="cam-shot" id="cam-shot" hidden>
+        <img id="cam-shot-img" alt="صورتك بالفلتر">
+        <a class="btn" id="cam-dl" download="اجمل-واحدة-في-الدنيا.jpg">نزّلي الصورة 💾</a>
+        <small>لو النزول مشتغلش، دوسي على الصورة كتير واحفظيها</small>
+      </div>
+    </div>
   </section>
 
   <!-- ===== الجواب ===== -->
@@ -433,6 +580,22 @@
     </article>
   </section>
 
+  <!-- ===== ⏳ رسالة من المستقبل ===== -->
+  <section class="reveal">
+    <h2 class="title">رسالة من المستقبل</h2>
+    <p class="lead">وصلتلي من مصطفى بتاع السنة الجاية... وقالي لازم توصلك النهارده.</p>
+    <article class="letter future">
+      <p class="date">١٦ أكتوبر ٢٠٢٧</p>
+      <p class="hello">حبيبتي،</p>
+      <p>أنا مصطفى بتاع السنة الجاية. عارف إن الكلام ده غريب، بس كان لازم أبعتلك قبل ما السنة دي تبدأ وأقولك حاجة واحدة: السنة اللي فاتت كانت أحلى سنة في حياتي، وبسببك إنتي.</p>
+      <p>مش هحكيلك اللي حصل بالظبط عشان المفاجآت متتحرقش 🙂 بس هقولك إن في أيام هتضحكي فيها لحد ما عينيكي تدمع، وأيام هتتعبي فيها وهتلاقيني جنبك قبل ما تطلبي. وفي لحظة صغيرة كده، في يوم عادي خالص، هبصلك وأقول في سري: الحمد لله إنها هي.</p>
+      <p>والحاجات اللي إنتي قلقانة منها دلوقتي؟ هتعديها واحدة واحدة، وهتبصي وراكي وتستغربي إنك كنتي خايفة أصلاً.</p>
+      <p>فعيشي السنة دي براحتك يا حبيبتي. وأنا هنا... في كل يوم فيها، ومستنيكي في آخرها عشان أقولك كل سنة وانتي طيبة تاني.</p>
+      <div class="sign">من المستقبل، بنفس الحب وأكتر<b>مصطفى</b></div>
+      <p class="ps">ملحوظة من المستقبل: لسه بتضحكي نفس الضحكة اللي بحبها، متقلقيش 🙂</p>
+    </article>
+  </section>
+
   <!-- ===== افتحي لما ===== -->
   <section class="reveal">
     <h2 class="title">جوابات تفتحيها بعدين</h2>
@@ -443,7 +606,7 @@
   <!-- ===== التورتة ===== -->
   <section class="cake-sec reveal">
     <h2 class="title">قبل ما تمشي، اطفي الشمع يا عسل</h2>
-    <p class="lead">افتحي قلبك، اتمني أمنية من كل روحك... وبعدين دوسي على الشمع واحدة واحدة.</p>
+    <p class="lead">افتحي قلبك، اتمني أمنية من كل روحك... وبعدين انفخي في المايك، أو دوسي على الشمع واحدة واحدة.</p>
     <div class="cake" aria-label="تورتة عليها شمع">
       <div class="watch-eyes" id="watch-eyes" aria-hidden="true">
         <div class="eye"><span class="pupil"></span></div>
@@ -455,7 +618,11 @@
       <div class="plate"></div>
     </div>
     <p class="cake-status" id="cake-status" aria-live="polite"></p>
-    <button class="btn hooof-btn" id="hooof-btn">هوووووف 🌬️ واطفي كل الشمع</button>
+    <div class="cake-actions">
+      <button class="btn mic-btn light" id="mic-btn">🎤 افتحي المايك وانفخي</button>
+      <button class="btn hooof-btn" id="hooof-btn">هوووووف 🌬️ واطفي كل الشمع</button>
+    </div>
+    <div class="mic-level" id="mic-level" hidden><i id="mic-bar"></i></div>
     <div class="love-burst">
       <button class="btn" id="love-btn">دوسي هنا لو بتحبيني ❤</button>
       <p class="love-count">اتدست <b id="love-count">٠</b> مرة... ولسه قلبي بيدق مع كل مرة</p>
@@ -528,6 +695,20 @@ function ar(n) {
   return String(n).replace(/\d/g, function(d) { return '٠١٢٣٤٥٦٧٨٩'[d]; });
 }
 function pad(n) { return String(n).padStart(2, '0'); }
+function clamp01(x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
+function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 🌙 وضع الليل ---------- */
+/* بيشتغل لوحده من ١٢ بالليل لحد ٥ الصبح. عشان تجربه بالنهار ضيف ?night=1 في آخر اللينك */
+var FORCE_NIGHT = /[?&]night=1/.test(location.search);
+function checkNight() {
+  var h = new Date().getHours();
+  if (FORCE_NIGHT || h < 5) document.documentElement.setAttribute('data-night', '1');
+  else document.documentElement.removeAttribute('data-night');
+}
+checkNight();
+setInterval(checkNight, 60000);
 
 function plural(n, one, two, few, many) {
   if (n === 1) return one;
@@ -706,6 +887,45 @@ function updateTimeline(now) {
   }
 }
 
+/* ---------- 💓 نبض قلبي ---------- */
+var BASE_BPM = 72, MAX_BPM = 168, bpm = BASE_BPM, pulseClicks = 0, ecgPos = 0, beatPhase = 0, lastPulseT = 0, lastShownBpm = 0;
+var PULSE_MSGS = [
+  'النبض ده بيزيد لما بتكوني قريبة 💓',
+  'شوفتي؟ كل ما تقربي... بيزيد أكتر',
+  'إنتي السبب في كل نبضة فيهم',
+  'خلاص كده هيطلع من مكانه ❤'
+];
+(function buildEcg(){
+  var d = 'M0 30';
+  for (var k = 0; k < 6; k++) {
+    var o = k * 200;
+    d += ' L' + (o+60) + ' 30 L' + (o+68) + ' 25 L' + (o+76) + ' 30 L' + (o+86) + ' 30 L' + (o+92) + ' 4 L' + (o+100) + ' 56 L' + (o+106) + ' 30 L' + (o+120) + ' 30 L' + (o+132) + ' 21 L' + (o+144) + ' 30 L' + (o+200) + ' 30';
+  }
+  $('ecg-path').setAttribute('d', d);
+})();
+function bump(f, c, w) { return Math.max(0, 1 - Math.abs(f - c) / w); }
+(function pulseLoop(t){
+  var dt = lastPulseT ? Math.min(64, t - lastPulseT) : 16;
+  lastPulseT = t;
+  if (bpm > BASE_BPM) bpm = Math.max(BASE_BPM, bpm - dt * 0.004);
+  beatPhase = (beatPhase + dt * bpm / 60000) % 1;
+  ecgPos = (ecgPos + dt * bpm / 60000 / 3 * 50) % 50;
+  $('ecg').style.transform = 'translateX(-' + ecgPos.toFixed(3) + '%)';
+  var sc = reduceMotion ? 1 : 1 + 0.26 * bump(beatPhase, 0.08, 0.08) + 0.15 * bump(beatPhase, 0.3, 0.08);
+  $('pulse-heart').style.transform = 'scale(' + sc.toFixed(3) + ')';
+  var shown = Math.round(bpm);
+  if (shown !== lastShownBpm) { $('bpm').textContent = ar(shown); lastShownBpm = shown; }
+  requestAnimationFrame(pulseLoop);
+})(0);
+$('pulse').addEventListener('click', function(){
+  bpm = Math.min(MAX_BPM, Math.max(bpm, 112) + 16);
+  var msg = $('pulse-msg');
+  msg.textContent = PULSE_MSGS[Math.min(pulseClicks, PULSE_MSGS.length - 1)];
+  msg.classList.add('show');
+  pulseClicks++;
+  heartBurst(5);
+});
+
 /* ---------- القوايم ---------- */
 var reasonsHtml = '';
 for (var r = 0; r < CONFIG.reasons.length; r++) reasonsHtml += '<li>' + CONFIG.reasons[r] + '</li>';
@@ -774,6 +994,196 @@ function party(n) {
   }
 }
 
+/* ---------- 🌹 الوردة ---------- */
+var ROSE_LAYERS = [
+  { n: 6, len: 1,    off: 0,  col: '#EE9AB2', start: 0 },
+  { n: 5, len: .84,  off: 30, col: '#E06E92', start: .12 },
+  { n: 5, len: .68,  off: 8,  col: '#C8446B', start: .24 },
+  { n: 4, len: .52,  off: 45, col: '#A9325A', start: .36, bud: true },
+  { n: 3, len: .36,  off: 20, col: '#8A2648', start: .48, bud: true }
+];
+var PETAL = 'M0 0 C-30 -14 -34 -56 -12 -72 Q0 -80 12 -72 C34 -56 30 -14 0 0Z';
+var LEAF = 'M0 0 C16 -18 42 -18 58 -6 C42 6 16 8 0 0Z';
+var rosePetals = [], roseStem, leafR, leafL;
+(function buildRose(){
+  var svg = $('rose'), defs = '', petals = '';
+  ROSE_LAYERS.forEach(function(L, li){
+    defs += '<radialGradient id="pg' + li + '" cx="50%" cy="100%" r="110%"><stop offset="0" stop-color="#4A1028"/><stop offset=".6" stop-color="' + L.col + '"/><stop offset="1" stop-color="' + L.col + '"/></radialGradient>';
+    for (var k = 0; k < L.n; k++) {
+      petals += '<path class="petal" data-l="' + li + '" data-a="' + (L.off + k * 360 / L.n) + '" d="' + PETAL + '" fill="url(#pg' + li + ')" stroke="rgba(61,16,34,.25)" stroke-width="1"/>';
+    }
+  });
+  svg.innerHTML = '<defs>' + defs + '</defs>' +
+    '<path id="rose-stem" d="M150 158 C144 210 158 262 150 334" pathLength="1" fill="none" stroke="#4E7D4A" stroke-width="5" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1"/>' +
+    '<path id="leaf-r" d="' + LEAF + '" fill="#5E9457"/>' +
+    '<path id="leaf-l" d="' + LEAF + '" fill="#4F8549"/>' +
+    '<g>' + petals + '</g>';
+  rosePetals = [].slice.call(svg.querySelectorAll('.petal'));
+  roseStem = svg.querySelector('#rose-stem');
+  leafR = svg.querySelector('#leaf-r');
+  leafL = svg.querySelector('#leaf-l');
+})();
+function paintRose(p){
+  rosePetals.forEach(function(el){
+    var L = ROSE_LAYERS[+el.getAttribute('data-l')], a = +el.getAttribute('data-a');
+    var e = easeOut(clamp01((p - L.start) / .5));
+    var sc = L.len * (L.bud ? .6 + .4 * e : .3 + .7 * e);
+    var rot = a + (1 - e) * 55;
+    el.setAttribute('transform', 'translate(150 150) rotate(' + rot.toFixed(2) + ') scale(' + sc.toFixed(3) + ')');
+    el.setAttribute('opacity', L.bud ? 1 : Math.min(1, e * 1.8).toFixed(2));
+  });
+  roseStem.setAttribute('stroke-dashoffset', (1 - clamp01(p * 2.6)).toFixed(3));
+  var le = easeOut(clamp01((p - .18) / .35)).toFixed(3);
+  leafR.setAttribute('transform', 'translate(152 246) scale(' + le + ') rotate(-18)');
+  leafL.setAttribute('transform', 'translate(148 286) scale(' + (-le) + ' ' + le + ') rotate(-18)');
+}
+var roseSec = $('rose-sec'), roseQueued = false;
+function roseProgress(){
+  roseQueued = false;
+  if (reduceMotion) { paintRose(1); roseSec.classList.add('bloomed'); return; }
+  var r = roseSec.getBoundingClientRect();
+  if (r.bottom < -60 || r.top > innerHeight + 60) return;
+  var p = clamp01((innerHeight * .35 - r.top) / (r.height - innerHeight * .65));
+  paintRose(p);
+  roseSec.classList.toggle('bloomed', p > .9);
+}
+function queueRose(){ if (!roseQueued) { roseQueued = true; requestAnimationFrame(roseProgress); } }
+addEventListener('scroll', queueRose, { passive: true });
+addEventListener('resize', queueRose);
+paintRose(0);
+roseProgress();
+
+/* ---------- 📸 كاميرا المفاجأة ---------- */
+var cam = { stream: null, raf: 0, hearts: [], last: 0, shotUrl: null };
+var CAM_COLORS = ['#FF6F9C', '#FFFFFF', '#FFC2D4', '#E8C46A'];
+function newCamHeart(anywhere){
+  return { x: Math.random(), y: anywhere ? Math.random() : 1.08, s: .03 + Math.random() * .05,
+    v: .00006 + Math.random() * .0001, a: .35 + Math.random() * .5,
+    c: CAM_COLORS[Math.floor(Math.random() * CAM_COLORS.length)], ph: Math.random() * 6.28 };
+}
+function drawHeart(ctx, x, y, s){
+  y -= s / 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y + s * .3);
+  ctx.bezierCurveTo(x, y, x - s * .5, y, x - s * .5, y + s * .3);
+  ctx.bezierCurveTo(x - s * .5, y + s * .6, x, y + s * .75, x, y + s);
+  ctx.bezierCurveTo(x, y + s * .75, x + s * .5, y + s * .6, x + s * .5, y + s * .3);
+  ctx.bezierCurveTo(x + s * .5, y, x, y, x, y + s * .3);
+  ctx.fill();
+}
+function drawOverlay(ctx, w, h, t){
+  var vg = ctx.createRadialGradient(w/2, h*.45, Math.min(w,h)*.3, w/2, h*.45, Math.max(w,h)*.72);
+  vg.addColorStop(0, 'rgba(200,68,107,0)'); vg.addColorStop(1, 'rgba(200,68,107,.5)');
+  ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
+  var bg = ctx.createLinearGradient(0, h*.62, 0, h);
+  bg.addColorStop(0, 'rgba(61,16,34,0)'); bg.addColorStop(1, 'rgba(61,16,34,.72)');
+  ctx.fillStyle = bg; ctx.fillRect(0, h*.62, w, h*.38);
+
+  cam.hearts.forEach(function(hh){
+    ctx.globalAlpha = hh.a; ctx.fillStyle = hh.c;
+    drawHeart(ctx, (hh.x + Math.sin(t / 900 + hh.ph) * .025) * w, hh.y * h, hh.s * w);
+  });
+  // تاج قلوب فوق الراس
+  ctx.globalAlpha = .95;
+  for (var k = 0; k < 7; k++) {
+    var ang = Math.PI * (1.15 + .7 * k / 6);
+    var cx = w/2 + Math.cos(ang) * w * .3, cy = h * .3 + Math.sin(ang) * h * .16;
+    var bob = Math.sin(t / 500 + k) * h * .006;
+    ctx.fillStyle = k % 2 ? '#FFC2D4' : '#FF6F9C';
+    drawHeart(ctx, cx, cy + bob, w * (k === 3 ? .08 : .052));
+  }
+  ctx.globalAlpha = 1;
+  ctx.textAlign = 'center';
+  try { ctx.direction = 'rtl'; } catch (e) {}
+  ctx.shadowColor = 'rgba(61,16,34,.85)'; ctx.shadowBlur = w * .03;
+  ctx.fillStyle = '#fff';
+  ctx.font = Math.round(w * .1) + 'px "Aref Ruqaa", "Amiri", serif';
+  ctx.fillText('أجمل واحدة في الدنيا', w/2, h * .885, w * .9);
+  ctx.font = '500 ' + Math.round(w * .04) + 'px "Tajawal", sans-serif';
+  ctx.fillStyle = '#FFD3DF';
+  ctx.fillText('بشهادة مصطفى ❤', w/2, h * .95, w * .9);
+  ctx.shadowBlur = 0;
+}
+function sizeCamCanvas(){
+  var c = $('cam-overlay'), st = $('cam-stage'), dpr = Math.min(2, window.devicePixelRatio || 1);
+  c.width = Math.round(st.clientWidth * dpr); c.height = Math.round(st.clientHeight * dpr);
+}
+function camLoop(t){
+  var c = $('cam-overlay'), x = c.getContext('2d');
+  var dt = cam.last ? Math.min(64, t - cam.last) : 16; cam.last = t;
+  for (var i = 0; i < cam.hearts.length; i++) {
+    cam.hearts[i].y -= cam.hearts[i].v * dt;
+    if (cam.hearts[i].y < -.08) cam.hearts[i] = newCamHeart(false);
+  }
+  x.clearRect(0, 0, c.width, c.height);
+  drawOverlay(x, c.width, c.height, t);
+  cam.raf = requestAnimationFrame(camLoop);
+}
+function camMsg(t){ $('cam-msg').textContent = t; }
+function stopCam(){
+  if (cam.raf) cancelAnimationFrame(cam.raf);
+  if (cam.stream) cam.stream.getTracks().forEach(function(tr){ tr.stop(); });
+  cam.stream = null; cam.raf = 0; cam.last = 0;
+  $('cam-video').srcObject = null;
+  $('cam-stage').hidden = true;
+  $('cam-open').hidden = false; $('cam-snap').hidden = true; $('cam-close').hidden = true;
+}
+$('cam-open').addEventListener('click', function(){
+  if (cam.stream) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.isSecureContext) {
+    camMsg('الكاميرا محتاجة الصفحة تتفتح من لينك https عشان تشتغل.');
+    return;
+  }
+  camMsg('ثانية واحدة...');
+  if (document.fonts && document.fonts.load) { document.fonts.load('40px "Aref Ruqaa"'); document.fonts.load('500 20px "Tajawal"'); }
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 1280 } }, audio: false })
+    .then(function(stream){
+      cam.stream = stream;
+      var v = $('cam-video'); v.srcObject = stream;
+      var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});
+      $('cam-stage').hidden = false;
+      $('cam-open').hidden = true; $('cam-snap').hidden = false; $('cam-close').hidden = false;
+      cam.hearts = []; for (var i = 0; i < 22; i++) cam.hearts.push(newCamHeart(true));
+      sizeCamCanvas();
+      cam.raf = requestAnimationFrame(camLoop);
+      camMsg('بصي كويس... شايفة؟ 🥹');
+      $('cam-stage').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    })
+    .catch(function(e){
+      var n = e && e.name;
+      camMsg(n === 'NotAllowedError' ? 'محتاج إذن الكاميرا. اسمحي بيها من إعدادات المتصفح وجربي تاني 🙏'
+        : n === 'NotFoundError' ? 'مفيش كاميرا على الجهاز ده 🥲'
+        : 'الكاميرا مفتحتش. جربي تقفلي أي أبلكيشن تاني بيستخدمها وجربي تاني.');
+    });
+});
+$('cam-close').addEventListener('click', function(){ stopCam(); camMsg(''); });
+addEventListener('resize', function(){ if (cam.stream) sizeCamCanvas(); });
+$('cam-snap').addEventListener('click', function(){
+  var v = $('cam-video'), vw = v.videoWidth, vh = v.videoHeight;
+  if (!vw) return;
+  var ratio = 3 / 4, sw, sh, sx, sy;
+  if (vw / vh > ratio) { sh = vh; sw = vh * ratio; sx = (vw - sw) / 2; sy = 0; }
+  else { sw = vw; sh = vw / ratio; sx = 0; sy = (vh - sh) / 2; }
+  var c = document.createElement('canvas');
+  c.width = Math.round(sw); c.height = Math.round(sh);
+  var x = c.getContext('2d');
+  x.save(); x.translate(c.width, 0); x.scale(-1, 1);
+  x.drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
+  x.restore();
+  drawOverlay(x, c.width, c.height, performance.now());
+  var fl = $('cam-flash'); fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go');
+  heartBurst(8);
+  c.toBlob(function(blob){
+    if (!blob) return;
+    if (cam.shotUrl) URL.revokeObjectURL(cam.shotUrl);
+    cam.shotUrl = URL.createObjectURL(blob);
+    $('cam-shot-img').src = cam.shotUrl;
+    $('cam-dl').href = cam.shotUrl;
+    $('cam-shot').hidden = false;
+    camMsg('اتصورت! أحلى صورة في الدنيا 📸❤');
+  }, 'image/jpeg', .92);
+});
+
 /* ---------- التورتة ---------- */
 var candlesHtml = '';
 for (var ci = 0; ci < CONFIG.candles; ci++) {
@@ -782,10 +1192,18 @@ for (var ci = 0; ci < CONFIG.candles; ci++) {
 $('candles').innerHTML = candlesHtml;
 
 var blown = 0, cakeDone = false;
+function blowOne(c) {
+  if (!c || c.classList.contains('out') || cakeDone) return;
+  c.classList.add('out');
+  blown++;
+  updateCakeStatus();
+}
 function updateCakeStatus() {
   var left = CONFIG.candles - blown;
-  if (left === 0) {
+  if (left <= 0) {
     cakeDone = true;
+    stopMic();
+    $('mic-btn').disabled = true;
     $('cake-status').textContent = 'طفيتيهم كلهم يا حبيبتي 🎉 أمنية من قلبك... سمعتها.';
     $('watch-eyes').classList.add('done');
     $('hooof-btn').disabled = true;
@@ -797,11 +1215,7 @@ function updateCakeStatus() {
   }
 }
 $('candles').addEventListener('click', function(e) {
-  var c = e.target.closest('.candle');
-  if (!c || c.classList.contains('out') || cakeDone) return;
-  c.classList.add('out');
-  blown++;
-  updateCakeStatus();
+  blowOne(e.target.closest('.candle'));
 });
 $('hooof-btn').addEventListener('click', function() {
   if (cakeDone) return;
@@ -812,15 +1226,74 @@ $('hooof-btn').addEventListener('click', function() {
   $('cake-status').textContent = 'خدي نفس كبير... هوووووف 🌬️';
   for (var k = 0; k < remaining.length; k++) {
     (function(candle, i) {
-      setTimeout(function() {
-        if (cakeDone) return;
-        candle.classList.add('out');
-        blown++;
-        updateCakeStatus();
-      }, 350 * (i + 1));
+      setTimeout(function() { blowOne(candle); }, 350 * (i + 1));
     })(remaining[k], k);
   }
   setTimeout(function() { btn.disabled = cakeDone; }, 350 * remaining.length + 100);
+});
+
+/* ---------- 🎤 النفخ في المايك ---------- */
+var mic = { stream: null, ctx: null, raf: 0 };
+function stopMic() {
+  if (mic.raf) cancelAnimationFrame(mic.raf);
+  if (mic.stream) mic.stream.getTracks().forEach(function(t){ t.stop(); });
+  if (mic.ctx && mic.ctx.close) { try { mic.ctx.close(); } catch (e) {} }
+  mic = { stream: null, ctx: null, raf: 0 };
+  $('mic-level').hidden = true;
+  $('mic-btn').classList.remove('listening');
+  $('mic-btn').textContent = '🎤 افتحي المايك وانفخي';
+}
+$('mic-btn').addEventListener('click', function() {
+  if (cakeDone) return;
+  if (mic.stream) { stopMic(); $('cake-status').textContent = ''; return; }
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.isSecureContext) {
+    $('cake-status').textContent = 'المايك محتاج الصفحة تتفتح من لينك https. دوسي على الشمع لحد ما 🙂';
+    return;
+  }
+  var actx = new AC(); // لازم يتعمل جوا الضغطة عشان الآيفون
+  $('cake-status').textContent = 'اسمحي للمايك...';
+  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
+    .then(function(stream) {
+      mic.stream = stream; mic.ctx = actx;
+      if (actx.state === 'suspended' && actx.resume) actx.resume();
+      var src = actx.createMediaStreamSource(stream), an = actx.createAnalyser();
+      an.fftSize = 1024; src.connect(an);
+      var data = new Uint8Array(an.fftSize), start = performance.now();
+      var base = 0, baseN = 0, calibrated = false, hold = 0, lastOut = 0;
+      $('mic-level').hidden = false;
+      $('mic-btn').classList.add('listening');
+      $('mic-btn').textContent = '⏹ اقفلي المايك';
+      $('cake-status').textContent = 'ثانية... بسمع الجو حواليكي';
+      (function listen(t) {
+        if (!mic.stream) return;
+        an.getByteTimeDomainData(data);
+        var sum = 0;
+        for (var i = 0; i < data.length; i++) { var v = (data[i] - 128) / 128; sum += v * v; }
+        var rms = Math.sqrt(sum / data.length);
+        $('mic-bar').style.width = Math.min(100, rms * 420) + '%';
+        if (t - start < 700) { base += rms; baseN++; }
+        else {
+          if (!calibrated) {
+            calibrated = true; base = baseN ? base / baseN : 0;
+            $('cake-status').textContent = 'سامعك... خدي نفس كبير وقولي هوووووف 🌬️';
+          }
+          var th = Math.max(0.07, base * 3);
+          hold = rms > th ? hold + 1 : Math.max(0, hold - 2);
+          if (hold >= 5 && t - lastOut > 220) {
+            var lit = $('candles').querySelectorAll('.candle:not(.out)');
+            if (lit.length) { blowOne(lit[Math.floor(Math.random() * lit.length)]); lastOut = t; }
+          }
+        }
+        if (mic.stream) mic.raf = requestAnimationFrame(listen);
+      })(performance.now());
+    })
+    .catch(function(e) {
+      try { actx.close(); } catch (er) {}
+      $('cake-status').textContent = (e && e.name === 'NotAllowedError')
+        ? 'محتاج إذن المايك. اسمحي بيه وجربي تاني، أو دوسي على الشمع بإيدك 🙂'
+        : 'المايك مفتحش. دوسي على الشمع بإيدك 🙂';
+    });
 });
 
 /* ---------- زرار الحب ---------- */
