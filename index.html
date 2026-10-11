@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>كل سنة وانتي طيبة يا حبيبة</title>
+<title>كل سنة وانتي طيبة يا عمري❤️</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
@@ -83,13 +83,13 @@
   #gate p{opacity:.75;font-size:15px;margin-bottom:28px}
 
   .btn{
-    display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border-radius:999px;
-    background:var(--rose);color:#fff;font-weight:700;font-size:17px;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 30px;border-radius:999px;
+    background:var(--rose);color:#fff;font-weight:700;font-size:17px;width:100%;
     transition:transform .2s ease,background .2s ease;
   }
   .btn:hover{background:#B33A5E}
   .btn:active{transform:scale(.97)}
-  .btn.light{background:var(--blush);color:var(--wine)}
+  .btn.light{background:var(--blush);color:var(--wine);width:auto}
 
   /* ---------- الصفحة ---------- */
   main{max-width:720px;margin:0 auto;padding:0 22px 40px}
@@ -218,7 +218,6 @@
   .wish{background:var(--paper);border-radius:24px;padding:36px 28px;max-width:420px;text-align:center}
   .wish h3{font-family:var(--hand);color:var(--rose);font-size:32px;font-weight:400;margin-bottom:10px}
   .wish p{font-family:var(--serif);font-size:19px;line-height:1.9;margin-bottom:24px}
-  .wish-btn-group{display:flex;flex-direction:column;gap:10px;margin-top:15px}
 
   @media (max-width:480px){
     .gallery{grid-template-columns:1fr}
@@ -338,10 +337,7 @@
   <div class="wish">
     <h3>إن شاء الله تتحقق 🤍</h3>
     <p>مش هسألك اتمنيتي إيه. بس لو أنا جوا الأمنية دي، أوعدك إني هحاول أبقى قدها.</p>
-    <div class="wish-btn-group">
-      <button class="btn" id="show-gift-btn">شوفي هديتك بقا 🎁</button>
-      <button class="btn light" data-close>بحبك يا مصطفى 🤍</button>
-    </div>
+    <button class="btn" id="show-gift-btn">شوفي هديتك بقا 🎁</button>
   </div>
 </div>
 
@@ -576,7 +572,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// زرار الانتقال من نافذة الأمنية لهدية الخاتم
+// زرار الانتقال المباشر لـ هدية الخاتم
 $('show-gift-btn').onclick = function() {
   $('wish-modal').classList.remove('open');
   $('modal-img').src = 'images/my babe gift.jpg';
