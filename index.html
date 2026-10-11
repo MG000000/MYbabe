@@ -291,6 +291,21 @@
   .plate{width:115%;margin:0 -7.5%;height:12px;border-radius:50%;background:var(--line)}
   .cake-status{color:var(--muted);min-height:1.8em;margin-bottom:8px;font-weight:500}
 
+  /* العيون الحارسة */
+  .watch-eyes{position:absolute;top:-56px;left:50%;transform:translateX(-50%);display:flex;gap:16px;z-index:3;animation:blinkEyes 5s ease-in-out infinite}
+  .watch-eyes .eye{width:38px;height:38px;border-radius:50%;background:#fff;border:3px solid var(--wine);position:relative;overflow:hidden;box-shadow:0 8px 16px -8px var(--shadow);display:flex;align-items:center;justify-content:center}
+  .watch-eyes .pupil{width:14px;height:14px;border-radius:50%;background:var(--wine);position:relative;animation:look 3.2s ease-in-out infinite}
+  .watch-eyes .pupil::after{content:"";position:absolute;top:2px;left:2px;width:5px;height:5px;border-radius:50%;background:#fff}
+  .watch-eyes .eye:nth-child(2) .pupil{animation-delay:.45s}
+  @keyframes look{0%,100%{transform:translate(0,0)}20%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(3px,4px)}80%{transform:translate(-3px,-3px)}}
+  @keyframes blinkEyes{0%,91%,100%{transform:translateX(-50%) scaleY(1)}94%{transform:translateX(-50%) scaleY(.06)}97%{transform:translateX(-50%) scaleY(1)}}
+  .watch-eyes.done{animation:none}
+  .watch-eyes.done .pupil{display:none}
+  .watch-eyes.done .eye{background:transparent;border-color:transparent;box-shadow:none;overflow:visible}
+  .watch-eyes.done .eye::before{content:"";position:absolute;left:2px;right:2px;top:6px;height:22px;border:4px solid transparent;border-top:4px solid var(--wine);border-radius:50%}
+  .hooof-btn{width:auto;margin-top:4px}
+  .hooof-btn:disabled{opacity:.6;cursor:default}
+
   /* زرار الحب */
   .love-burst{margin-top:34px}
   .love-burst .btn{width:auto}
@@ -320,6 +335,7 @@
     .reveal{opacity:1;transform:none}
   }
 </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body class="locked">
@@ -414,12 +430,17 @@
     <h2 class="title">قبل ما تمشي، اطفي الشمع يا عسل</h2>
     <p class="lead">افتحي قلبك، اتمني أمنية من كل روحك... وبعدين دوسي على الشمع واحدة واحدة.</p>
     <div class="cake" aria-label="تورتة عليها شمع">
+      <div class="watch-eyes" id="watch-eyes" aria-hidden="true">
+        <div class="eye"><span class="pupil"></span></div>
+        <div class="eye"><span class="pupil"></span></div>
+      </div>
       <div class="candles" id="candles"></div>
       <div class="tier top"></div>
       <div class="tier bottom"></div>
       <div class="plate"></div>
     </div>
     <p class="cake-status" id="cake-status" aria-live="polite"></p>
+    <button class="btn hooof-btn" id="hooof-btn">هوووووف 🌬️ واطفي كل الشمع</button>
     <div class="love-burst">
       <button class="btn" id="love-btn">دوسي هنا لو بتحبيني ❤</button>
       <p class="love-count">اتدست <b id="love-count">٠</b> مرة... ولسه قلبي بيدق مع كل مرة</p>
@@ -745,21 +766,46 @@ for (var ci = 0; ci < CONFIG.candles; ci++) {
 }
 $('candles').innerHTML = candlesHtml;
 
-var blown = 0;
-$('candles').addEventListener('click', function(e) {
-  var c = e.target.closest('.candle');
-  if (!c || c.classList.contains('out')) return;
-  c.classList.add('out');
-  blown++;
+var blown = 0, cakeDone = false;
+function updateCakeStatus() {
   var left = CONFIG.candles - blown;
   if (left === 0) {
+    cakeDone = true;
     $('cake-status').textContent = 'طفيتيهم كلهم يا حبيبتي 🎉 أمنية من قلبك... سمعتها.';
+    $('watch-eyes').classList.add('done');
+    $('hooof-btn').disabled = true;
     party(180);
     heartBurst(10);
     setTimeout(function() { $('wish-modal').classList.add('open'); }, 900);
   } else {
     $('cake-status').textContent = left === 1 ? 'آخر واحدة... اتمني كويس' : (left === 2 ? 'فاضل اتنين' : 'كمان ' + ar(left));
   }
+}
+$('candles').addEventListener('click', function(e) {
+  var c = e.target.closest('.candle');
+  if (!c || c.classList.contains('out') || cakeDone) return;
+  c.classList.add('out');
+  blown++;
+  updateCakeStatus();
+});
+$('hooof-btn').addEventListener('click', function() {
+  if (cakeDone) return;
+  var remaining = $('candles').querySelectorAll('.candle:not(.out)');
+  if (!remaining.length) return;
+  this.disabled = true;
+  var btn = this;
+  $('cake-status').textContent = 'خدي نفس كبير... هوووووف 🌬️';
+  for (var k = 0; k < remaining.length; k++) {
+    (function(candle, i) {
+      setTimeout(function() {
+        if (cakeDone) return;
+        candle.classList.add('out');
+        blown++;
+        updateCakeStatus();
+      }, 350 * (i + 1));
+    })(remaining[k], k);
+  }
+  setTimeout(function() { btn.disabled = cakeDone; }, 350 * remaining.length + 100);
 });
 
 /* ---------- زرار الحب ---------- */
@@ -803,4 +849,4 @@ tick();
 setInterval(tick, 1000);
 </script>
 </body>
-</html>
+</html> 
